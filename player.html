@@ -27,6 +27,11 @@
       min-height: 100vh;
     }
 
+    /* When in fullscreen mode, hide nav and make body overflow hidden */
+    body.fs-mode {
+      overflow: hidden;
+    }
+
     nav {
       position: sticky; top: 0; z-index: 100;
       background: rgba(11,15,26,0.95);
@@ -35,6 +40,13 @@
       padding: 0 32px;
       height: 64px;
       display: flex; align-items: center; justify-content: space-between;
+      transition: opacity 0.3s;
+    }
+
+    body.fs-mode nav {
+      opacity: 0;
+      pointer-events: none;
+      position: fixed;
     }
 
     .logo {
@@ -60,6 +72,7 @@
       font-size: 14px;
       cursor: pointer;
       transition: all 0.2s;
+      text-decoration: none;
     }
     .back-btn:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -67,6 +80,12 @@
       max-width: 1000px;
       margin: 0 auto;
       padding: 40px 32px;
+      transition: all 0.3s;
+    }
+
+    body.fs-mode main {
+      max-width: 100%;
+      padding: 0;
     }
 
     .video-title {
@@ -75,29 +94,34 @@
       font-weight: 700;
       margin-bottom: 24px;
       letter-spacing: -0.3px;
+      transition: opacity 0.3s;
     }
 
-    /* The player wrapper — context menu & right-click are blocked */
+    body.fs-mode .video-title { opacity: 0; height: 0; margin: 0; overflow: hidden; }
+
+    /* ── PLAYER WRAPPER ── */
     .player-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 */
+      padding-top: 56.25%;
       border-radius: 16px;
       overflow: hidden;
       background: #000;
       border: 1px solid var(--border);
       box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
     }
 
-    /* Fullscreen mode */
-    .player-wrapper.fullscreen {
+    /* Our own CSS fullscreen — covers whole viewport, stays in our page */
+    body.fs-mode .player-wrapper {
       position: fixed;
       inset: 0;
-      z-index: 9999;
-      padding-top: 0;
-      border-radius: 0;
       width: 100vw;
       height: 100vh;
+      padding-top: 0;
+      border-radius: 0;
+      border: none;
+      z-index: 9999;
     }
 
     .player-wrapper iframe {
@@ -106,74 +130,78 @@
       width: 100%;
       height: 100%;
       border: none;
+      /* 
+        CRITICAL FIXES:
+        1. allow="autoplay; fullscreen" — needed for audio + video to work
+        2. NO sandbox attribute — sandbox blocks audio context in Google Drive player
+        3. allowfullscreen — needed but we intercept it ourselves
+      */
     }
 
-    /* Transparent overlay to block right-click / download attempts */
-    .player-overlay {
+    /* ── SHIELDS — block Google Drive bottom bar (download/settings buttons) ── */
+    /* We only cover the very bottom strip where GDrive puts its buttons */
+    .shield-bottom {
       position: absolute;
-      inset: 0;
-      z-index: 5;
-      background: transparent;
-      pointer-events: none; /* allow iframe clicks through */
-    }
-
-    /* Shields to block all Google Drive UI elements */
-    .shield {
-      position: absolute;
-      background: rgba(0,0,0,0.01);
+      bottom: 0; left: 0; right: 0;
+      height: 52px;
       z-index: 10;
+      background: #000; /* solid black bar hides GDrive buttons */
       pointer-events: auto;
     }
 
-    /* Bottom shield - blocks download, settings, fullscreen buttons */
-    .shield-bottom {
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 70px;
-      background: transparent;
-    }
-
-    /* Top-right shield - blocks Google Drive logo and open button */
+    /* Thin strip top-right to hide "Open in Drive" link */
     .shield-top-right {
-      top: 0;
-      right: 0;
-      width: 200px;
-      height: 60px;
-    }
-
-    /* Top-left shield - blocks additional controls */
-    .shield-top-left {
-      top: 0;
-      left: 0;
-      width: 60px;
-      height: 60px;
-    }
-
-    /* Custom fullscreen button */
-    .fullscreen-btn {
       position: absolute;
-      top: 16px; right: 16px;
+      top: 0; right: 0;
+      width: 180px; height: 48px;
+      z-index: 10;
+      background: linear-gradient(to left, #000 60%, transparent);
+      pointer-events: auto;
+    }
+
+    /* ── FULLSCREEN BUTTON (our custom one) ── */
+    .fs-btn {
+      position: absolute;
+      bottom: 10px; right: 12px;
       z-index: 20;
-      background: rgba(0,0,0,0.7);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(249,115,22,0.85);
+      border: none;
       color: #fff;
-      width: 40px; height: 40px;
-      border-radius: 8px;
+      width: 34px; height: 34px;
+      border-radius: 7px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 16px;
       transition: all 0.2s;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
+    }
+    .fs-btn:hover { background: var(--accent); transform: scale(1.1); }
+
+    /* ESC hint shown in fullscreen */
+    .esc-hint {
+      position: fixed;
+      top: 20px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
     }
 
-    .fullscreen-btn:hover {
-      background: rgba(249,115,22,0.8);
-      border-color: var(--accent);
+    body.fs-mode .esc-hint {
+      opacity: 1;
+      animation: fadeHint 3s ease forwards;
     }
 
-    .player-wrapper.fullscreen .fullscreen-btn {
-      top: 20px; right: 20px;
+    @keyframes fadeHint {
+      0%   { opacity: 1; }
+      60%  { opacity: 1; }
+      100% { opacity: 0; }
     }
 
     .notice {
@@ -185,12 +213,17 @@
       padding: 14px 18px;
       font-size: 13px;
       color: var(--muted2);
+      transition: opacity 0.3s;
     }
 
+    body.fs-mode .notice { opacity: 0; pointer-events: none; }
     .notice .icon { font-size: 18px; flex-shrink: 0; }
   </style>
 </head>
 <body>
+
+  <div class="esc-hint">Press ESC or click ✕ to exit fullscreen</div>
+
   <nav>
     <div class="logo">
       <div class="logo-icon">🎓</div>
@@ -202,32 +235,33 @@
   <main>
     <div class="video-title" id="videoTitle">Loading…</div>
 
-    <div class="player-wrapper" id="playerWrapper"
-         oncontextmenu="return false;"
-         onselectstart="return false;"
-         ondragstart="return false;">
-      <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Toggle Fullscreen">⛶</button>
+    <div class="player-wrapper" id="playerWrapper" oncontextmenu="return false;">
+
       <iframe
         id="videoFrame"
         src=""
-        allow="autoplay"
-        sandbox="allow-same-origin allow-scripts"
+        allow="autoplay; fullscreen"
+        allowfullscreen
         referrerpolicy="no-referrer"
       ></iframe>
-      <div class="player-overlay"></div>
-      <div class="shield shield-bottom"></div>
-      <div class="shield shield-top-right"></div>
-      <div class="shield shield-top-left"></div>
+
+      <!-- Shields over Google Drive's own UI buttons -->
+      <div class="shield-bottom"></div>
+      <div class="shield-top-right"></div>
+
+      <!-- Our fullscreen toggle button -->
+      <button class="fs-btn" id="fsBtn" onclick="toggleFS()" title="Fullscreen">⛶</button>
+
     </div>
 
     <div class="notice">
       <span class="icon">🔒</span>
-      <span>This video is for viewing only. Downloading or sharing is not permitted.</span>
+      <span>This video is for authorised viewing only. Downloading or sharing is not permitted.</span>
     </div>
   </main>
 
   <script>
-    // Auth guard
+    // ── Auth guard ──
     const session = JSON.parse(localStorage.getItem('session') || 'null');
     if (!session || session.role !== 'student') window.location.href = 'index.html';
 
@@ -236,41 +270,51 @@
 
     document.getElementById('videoTitle').textContent = videoData.title;
 
-    // Google Drive embed URL — &rm=minimal hides download button
-    const src = `https://drive.google.com/file/d/${videoData.driveId}/preview?rm=minimal`;
-    document.getElementById('videoFrame').src = src;
+    // ── Load video ──
+    // ?rm=minimal  → hides Google Drive's own download/settings bar (best effort)
+    // Note: we ALSO cover it with the black shield-bottom as a hard guarantee
+    const driveUrl = `https://drive.google.com/file/d/${videoData.driveId}/preview?rm=minimal`;
+    document.getElementById('videoFrame').src = driveUrl;
 
-    // Block keyboard shortcuts for saving
+    // ── Our CSS-based fullscreen (stays inside our page, never leaves) ──
+    function toggleFS() {
+      const isFS = document.body.classList.toggle('fs-mode');
+      document.getElementById('fsBtn').textContent = isFS ? '✕' : '⛶';
+      document.getElementById('fsBtn').title = isFS ? 'Exit Fullscreen (ESC)' : 'Fullscreen';
+    }
+
+    // ── Keyboard shortcuts ──
     document.addEventListener('keydown', e => {
-      if ((e.ctrlKey || e.metaKey) && ['s','u','p'].includes(e.key.toLowerCase())) {
-        e.preventDefault();
+      // ESC exits our fullscreen
+      if (e.key === 'Escape' && document.body.classList.contains('fs-mode')) {
+        toggleFS();
       }
-      // ESC to exit fullscreen
-      if (e.key === 'Escape' && document.getElementById('playerWrapper').classList.contains('fullscreen')) {
-        toggleFullscreen();
+      // Block save/print/view-source shortcuts
+      if ((e.ctrlKey || e.metaKey) && ['s','p','u'].includes(e.key.toLowerCase())) {
+        e.preventDefault();
       }
     });
 
-    // Custom fullscreen toggle
-    function toggleFullscreen() {
-      const wrapper = document.getElementById('playerWrapper');
-      const btn = document.getElementById('fullscreenBtn');
-      
-      if (wrapper.classList.contains('fullscreen')) {
-        wrapper.classList.remove('fullscreen');
-        btn.textContent = '⛶';
-        btn.title = 'Enter Fullscreen';
-      } else {
-        wrapper.classList.add('fullscreen');
-        btn.textContent = '✕';
-        btn.title = 'Exit Fullscreen';
+    // ── Intercept browser's native fullscreen request from iframe ──
+    // When GDrive's fullscreen button is pressed inside the iframe, it triggers
+    // a fullscreenchange on the document. We catch it and reroute to our own FS.
+    document.addEventListener('fullscreenchange', () => {
+      // If browser native FS was triggered (e.g. from inside iframe), exit it
+      // and switch to our own CSS fullscreen instead
+      if (document.fullscreenElement) {
+        document.exitFullscreen().then(() => {
+          if (!document.body.classList.contains('fs-mode')) {
+            toggleFS();
+          }
+        });
       }
-    }
+    });
 
-    // Double-click to toggle fullscreen
-    document.getElementById('playerWrapper').addEventListener('dblclick', e => {
-      if (e.target.id === 'playerWrapper' || e.target.classList.contains('shield')) {
-        toggleFullscreen();
+    // Webkit/Safari
+    document.addEventListener('webkitfullscreenchange', () => {
+      if (document.webkitFullscreenElement) {
+        document.webkitExitFullscreen();
+        if (!document.body.classList.contains('fs-mode')) toggleFS();
       }
     });
   </script>
