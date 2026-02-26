@@ -89,12 +89,24 @@
       box-shadow: 0 32px 64px rgba(0,0,0,0.5);
     }
 
+    /* Fullscreen mode */
+    .player-wrapper.fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      padding-top: 0;
+      border-radius: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+
     .player-wrapper iframe {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       border: none;
+      pointer-events: auto;
     }
 
     /* Transparent overlay to block right-click / download attempts */
@@ -110,9 +122,36 @@
     .shield {
       position: absolute;
       bottom: 0; right: 0;
-      width: 140px; height: 60px;
+      width: 180px; height: 80px;
       background: #000;
       z-index: 10;
+      pointer-events: auto;
+    }
+
+    /* Custom fullscreen button */
+    .fullscreen-btn {
+      position: absolute;
+      top: 16px; right: 16px;
+      z-index: 20;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s;
+      backdrop-filter: blur(10px);
+    }
+
+    .fullscreen-btn:hover {
+      background: rgba(249,115,22,0.8);
+      border-color: var(--accent);
+    }
+
+    .player-wrapper.fullscreen .fullscreen-btn {
+      top: 20px; right: 20px;
     }
 
     .notice {
@@ -145,11 +184,11 @@
          oncontextmenu="return false;"
          onselectstart="return false;"
          ondragstart="return false;">
+      <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Toggle Fullscreen">⛶</button>
       <iframe
         id="videoFrame"
         src=""
         allow="autoplay"
-        allowfullscreen
         referrerpolicy="no-referrer"
       ></iframe>
       <div class="player-overlay"></div>
@@ -180,6 +219,33 @@
     document.addEventListener('keydown', e => {
       if ((e.ctrlKey || e.metaKey) && ['s','u','p'].includes(e.key.toLowerCase())) {
         e.preventDefault();
+      }
+      // ESC to exit fullscreen
+      if (e.key === 'Escape' && document.getElementById('playerWrapper').classList.contains('fullscreen')) {
+        toggleFullscreen();
+      }
+    });
+
+    // Custom fullscreen toggle
+    function toggleFullscreen() {
+      const wrapper = document.getElementById('playerWrapper');
+      const btn = document.getElementById('fullscreenBtn');
+      
+      if (wrapper.classList.contains('fullscreen')) {
+        wrapper.classList.remove('fullscreen');
+        btn.textContent = '⛶';
+        btn.title = 'Enter Fullscreen';
+      } else {
+        wrapper.classList.add('fullscreen');
+        btn.textContent = '✕';
+        btn.title = 'Exit Fullscreen';
+      }
+    }
+
+    // Double-click to toggle fullscreen
+    document.getElementById('playerWrapper').addEventListener('dblclick', e => {
+      if (e.target.id === 'playerWrapper' || e.target.classList.contains('shield')) {
+        toggleFullscreen();
       }
     });
   </script>
