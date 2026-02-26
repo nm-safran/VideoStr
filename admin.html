@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduPortal — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0f1a;
+      --panel: #111827;
+      --panel2: #1a2235;
+      --border: #1e2a3a;
+      --accent: #f97316;
+      --accent2: #fb923c;
+      --green: #22c55e;
+      --red: #ef4444;
+      --text: #f1f5f9;
+      --muted: #64748b;
+      --muted2: #94a3b8;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* SIDEBAR */
+    aside {
+      width: 240px; flex-shrink: 0;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+      position: sticky; top: 0;
+      display: flex; flex-direction: column;
+      padding: 28px 0;
+    }
+
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 19px;
+      padding: 0 24px;
+      margin-bottom: 36px;
+    }
+    .logo-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .sidebar-logo span { color: var(--accent); }
+
+    .admin-badge {
+      margin: 0 24px 28px;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav-label {
+      font-size: 11px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1px;
+      padding: 0 24px;
+      margin-bottom: 8px;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 24px;
+      font-size: 14px; color: var(--muted2);
+      cursor: pointer;
+      transition: all 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .nav-item:hover { color: var(--text); background: var(--panel2); }
+    .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(249,115,22,0.05); }
+    .nav-item .icon { font-size: 16px; }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 0 24px;
+    }
+
+    .btn-logout {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted2);
+      padding: 10px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover { border-color: var(--red); color: var(--red); }
+
+    /* MAIN */
+    .main-content {
+      flex: 1;
+      padding: 40px 40px;
+      overflow-y: auto;
+    }
+
+    .section { display: none; }
+    .section.active { display: block; animation: fadeIn 0.3s ease both; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .section-header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px; font-weight: 800;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      padding: 11px 22px;
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* TABLE */
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead { background: var(--panel2); }
+    th {
+      text-align: left;
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    td {
+      padding: 14px 20px;
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    tr:hover td { background: var(--panel2); }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px; font-weight: 600;
+      background: rgba(249,115,22,0.1);
+      color: var(--accent);
+      margin: 2px;
+    }
+
+    .action-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted2);
+      padding: 6px 14px;
+      border-radius: 7px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-right: 6px;
+    }
+    .action-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .action-btn.danger:hover { border-color: var(--red); color: var(--red); }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      width: 100%; max-width: 520px;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: modalIn 0.25s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .modal h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px; font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-size: 12px; font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group select option { background: var(--panel); }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+
+    .modal-actions {
+      display: flex; gap: 12px;
+      justify-content: flex-end;
+      margin-top: 24px;
+    }
+
+    .btn-cancel {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted2);
+      padding: 11px 22px;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-cancel:hover { border-color: var(--muted); }
+
+    /* STATS CARDS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+    .stat-value { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; }
+    .stat-value.orange { color: var(--accent); }
+
+    /* Course expand */
+    .course-row { cursor: pointer; }
+    .lessons-sub { background: var(--bg); }
+    .lessons-sub td { padding: 0; }
+    .lessons-inner { padding: 0 20px 12px; display: none; }
+    .lessons-inner.open { display: block; }
+    .lesson-sub-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .lesson-sub-item:last-child { border-bottom: none; }
+    .lesson-sub-actions { margin-left: auto; display: flex; gap: 6px; }
+
+    .checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .checkbox-group label {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text);
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+      transition: border-color 0.15s;
+    }
+    .checkbox-group input[type=checkbox] { accent-color: var(--accent); }
+    .checkbox-group label:has(input:checked) { border-color: var(--accent); background: rgba(249,115,22,0.08); }
+
+    .hint { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+    /* SETUP GUIDE */
+    .guide-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .guide-card h2 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+    .step {
+      display: flex; gap: 16px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 28px; height: 28px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+    }
+    .step-text { font-size: 14px; color: var(--muted2); line-height: 1.6; }
+    .step-text code {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px; padding: 2px 6px;
+      font-size: 12px; color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="sidebar-logo">
+      <div class="logo-icon">🎓</div>
+      Edu<span>Portal</span>
+    </div>
+    <div class="admin-badge">⚙ Admin Panel</div>
+
+    <div class="nav-label">Management</div>
+    <div class="nav-item active" onclick="showSection('overview')"><span class="icon">📊</span> Overview</div>
+    <div class="nav-item" onclick="showSection('users')"><span class="icon">👥</span> Users</div>
+    <div class="nav-item" onclick="showSection('courses')"><span class="icon">📚</span> Courses & Lessons</div>
+    <div class="nav-item" onclick="showSection('access')"><span class="icon">🔐</span> Access Control</div>
+    <div class="nav-item" onclick="showSection('setup')"><span class="icon">🛠</span> Setup Guide</div>
+
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="logout()">← Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-content">
+
+    <!-- OVERVIEW -->
+    <div class="section active" id="section-overview">
+      <div class="section-header">
+        <h1>Overview</h1>
+      </div>
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="guide-card">
+        <h2>🚀 Quick Start</h2>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Go to <strong>Setup Guide</strong> to learn how to get Google Drive video IDs and edit <code>data.js</code>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">Add students in <code>USERS</code> and courses/lessons in <code>COURSES</code> inside <code>data.js</code>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">Assign courses to students using the <strong>Access Control</strong> section (also in <code>data.js</code>).</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text">Push changes to GitHub — your portal is live on GitHub Pages!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="section" id="section-users">
+      <div class="section-header">
+        <h1>Users</h1>
+        <button class="btn-primary" onclick="openAddUserInfo()">+ How to Add User</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Courses Access</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COURSES -->
+    <div class="section" id="section-courses">
+      <div class="section-header">
+        <h1>Courses &amp; Lessons</h1>
+        <button class="btn-primary" onclick="openAddCourseInfo()">+ How to Add Course</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>ID</th>
+              <th>Lessons</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="coursesTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ACCESS CONTROL -->
+    <div class="section" id="section-access">
+      <div class="section-header">
+        <h1>Access Control</h1>
+      </div>
+      <p style="color:var(--muted2);font-size:14px;margin-bottom:24px;">
+        Below is a summary of which courses each student can access. To change access, edit the <code style="background:var(--panel);padding:2px 6px;border-radius:4px;color:var(--accent)">courses</code> array for each user in <strong>data.js</strong>.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Username</th>
+              <th>Courses Accessible</th>
+            </tr>
+          </thead>
+          <tbody id="accessTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SETUP GUIDE -->
+    <div class="section" id="section-setup">
+      <div class="section-header">
+        <h1>Setup Guide</h1>
+      </div>
+
+      <div class="guide-card">
+        <h2>📹 How to Add a Google Drive Video</h2>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Upload your lecture video to <strong>Google Drive</strong>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">Right-click the file → <strong>Share</strong> → Change to <strong>"Anyone with the link"</strong> → Copy link.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">The link looks like: <code>https://drive.google.com/file/d/<strong>FILEID</strong>/view</code>. Copy only the <strong>FILEID</strong> part.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text">In <code>data.js</code>, set <code>driveId: "FILEID"</code> for the corresponding lesson.</div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <h2>👤 How to Add a Student</h2>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Open <code>data.js</code> and find the <code>USERS</code> array.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">Add a new entry: <code>{"{ id: "u4", username: "newuser", password: "pass", name: "Full Name", courses: ["c1"] }"}</code></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">The <code>courses</code> field is an array of course IDs (e.g. <code>["c1","c2"]</code>) this student can see.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text">Commit and push to GitHub. The student can log in immediately.</div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <h2>📚 How to Add a Course or Lesson</h2>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Open <code>data.js</code> and find the <code>COURSES</code> array.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">Copy an existing course block and edit the <code>id</code>, <code>title</code>, <code>description</code>, and <code>thumbnail</code>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">Add lessons inside the <code>lessons</code> array with a unique <code>id</code>, <code>title</code>, <code>duration</code>, and the Google Drive <code>driveId</code>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text">Assign the new course ID to users in the <code>USERS</code> array. Push to GitHub.</div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <h2>🌐 GitHub Pages Deployment</h2>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Create a new GitHub repository and upload all files: <code>index.html</code>, <code>dashboard.html</code>, <code>player.html</code>, <code>admin.html</code>, <code>data.js</code>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">Go to repository <strong>Settings → Pages</strong> → Set source to <strong>main branch / root</strong>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">Your portal is live at <code>https://yourusername.github.io/repo-name/</code>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text">Every time you update <code>data.js</code>, push the change and GitHub Pages updates within ~1 minute.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+
+  <!-- INFO MODALS -->
+  <div class="modal-overlay" id="infoModal">
+    <div class="modal">
+      <h2 id="infoModalTitle">Info</h2>
+      <p id="infoModalBody" style="color:var(--muted2);font-size:14px;line-height:1.7;"></p>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal('infoModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    // Auth guard
+    const session = JSON.parse(localStorage.getItem('session') || 'null');
+    if (!session || session.role !== 'admin') window.location.href = 'index.html';
+
+    // NAV
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById('section-' + id).classList.add('active');
+      event.currentTarget.classList.add('active');
+      if (id === 'users') renderUsers();
+      if (id === 'courses') renderCourses();
+      if (id === 'access') renderAccess();
+      if (id === 'overview') renderStats();
+    }
+
+    // STATS
+    function renderStats() {
+      const totalLessons = COURSES.reduce((a, c) => a + c.lessons.length, 0);
+      document.getElementById('statsGrid').innerHTML = `
+        <div class="stat-card"><div class="stat-label">Students</div><div class="stat-value orange">${USERS.length}</div></div>
+        <div class="stat-card"><div class="stat-label">Courses</div><div class="stat-value orange">${COURSES.length}</div></div>
+        <div class="stat-card"><div class="stat-label">Total Lessons</div><div class="stat-value orange">${totalLessons}</div></div>
+      `;
+    }
+    renderStats();
+
+    // USERS TABLE
+    function renderUsers() {
+      document.getElementById('usersTableBody').innerHTML = USERS.map(u => `
+        <tr>
+          <td><code style="color:var(--muted)">${u.id}</code></td>
+          <td><strong>${u.name}</strong></td>
+          <td>${u.username}</td>
+          <td><code style="color:var(--muted2)">${u.password}</code></td>
+          <td>${u.courses.map(cid => {
+            const c = COURSES.find(x => x.id === cid);
+            return c ? `<span class="tag">${c.title}</span>` : `<span class="tag" style="opacity:0.5">${cid}</span>`;
+          }).join('') || '<span style="color:var(--muted);font-size:13px">No courses</span>'}</td>
+        </tr>
+      `).join('');
+    }
+
+    // COURSES TABLE
+    function renderCourses() {
+      document.getElementById('coursesTableBody').innerHTML = COURSES.map(c => `
+        <tr class="course-row" onclick="toggleLessons('lessons-${c.id}')">
+          <td><strong>${c.title}</strong><br><span style="color:var(--muted);font-size:12px">${c.description}</span></td>
+          <td><code style="color:var(--muted)">${c.id}</code></td>
+          <td>${c.lessons.length} lessons</td>
+          <td><span style="color:var(--muted);font-size:12px">▼ expand</span></td>
+        </tr>
+        <tr class="lessons-sub">
+          <td colspan="4">
+            <div class="lessons-inner" id="lessons-${c.id}">
+              ${c.lessons.map((l, i) => `
+                <div class="lesson-sub-item">
+                  <strong>${i+1}.</strong> ${l.title}
+                  <span style="color:var(--muted);font-size:12px;margin-left:8px">⏱ ${l.duration}</span>
+                  <span style="color:var(--muted);font-size:12px;margin-left:12px">ID: <code>${l.driveId === 'YOUR_DRIVE_FILE_ID_HERE' ? '⚠ Not set' : l.driveId.substring(0,20)+'…'}</code></span>
+                  <span class="lesson-sub-actions">
+                    ${l.driveId === 'YOUR_DRIVE_FILE_ID_HERE'
+                      ? '<span style="color:var(--red);font-size:12px">⚠ No video ID</span>'
+                      : '<span style="color:var(--green);font-size:12px">✓ Video set</span>'}
+                  </span>
+                </div>
+              `).join('')}
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function toggleLessons(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('open');
+    }
+
+    // ACCESS TABLE
+    function renderAccess() {
+      document.getElementById('accessTableBody').innerHTML = USERS.map(u => `
+        <tr>
+          <td><strong>${u.name}</strong></td>
+          <td>${u.username}</td>
+          <td>${u.courses.map(cid => {
+            const c = COURSES.find(x => x.id === cid);
+            return `<span class="tag">${c ? c.title : cid}</span>`;
+          }).join('') || '<span style="color:var(--muted);font-size:13px">No access</span>'}</td>
+        </tr>
+      `).join('');
+    }
+
+    // MODALS
+    function openAddUserInfo() {
+      document.getElementById('infoModalTitle').textContent = 'How to Add a User';
+      document.getElementById('infoModalBody').innerHTML = `
+        Open <strong>data.js</strong> and add a new object to the <code>USERS</code> array:<br><br>
+        <code style="display:block;background:var(--bg);padding:12px;border-radius:8px;font-size:13px;color:var(--accent)">
+          { id: "u4", username: "newstudent", password: "password123",<br>
+            name: "Full Name", courses: ["c1", "c2"] }
+        </code><br>
+        The <code>courses</code> array should contain course IDs the student can access.
+        Push to GitHub to apply changes.
+      `;
+      document.getElementById('infoModal').classList.add('open');
+    }
+
+    function openAddCourseInfo() {
+      document.getElementById('infoModalTitle').textContent = 'How to Add a Course';
+      document.getElementById('infoModalBody').innerHTML = `
+        Open <strong>data.js</strong> and add a new object to the <code>COURSES</code> array with lessons inside it.<br><br>
+        Get the Google Drive file ID from the share link:<br>
+        <code style="display:block;background:var(--bg);padding:12px;border-radius:8px;font-size:13px;color:var(--accent);margin-top:8px">
+          https://drive.google.com/file/d/<strong>FILE_ID</strong>/view
+        </code><br>
+        Set <code>driveId: "FILE_ID"</code> for each lesson. Push to GitHub to apply.
+      `;
+      document.getElementById('infoModal').classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    document.querySelectorAll('.modal-overlay').forEach(m => {
+      m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+    });
+
+    function logout() {
+      localStorage.removeItem('session');
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

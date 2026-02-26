@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduPortal — Watch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0f1a;
+      --panel: #111827;
+      --border: #1e2a3a;
+      --accent: #f97316;
+      --accent2: #fb923c;
+      --text: #f1f5f9;
+      --muted: #64748b;
+      --muted2: #94a3b8;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11,15,26,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .logo span { color: var(--accent); }
+
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted2);
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 32px;
+    }
+
+    .video-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.3px;
+    }
+
+    /* The player wrapper — context menu & right-click are blocked */
+    .player-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border);
+      box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+    }
+
+    .player-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Transparent overlay to block right-click / download attempts */
+    .player-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: transparent;
+      pointer-events: none; /* allow iframe clicks through */
+    }
+
+    /* Extra shield on bottom-right where GDrive shows download icon */
+    .shield {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 140px; height: 60px;
+      background: #000;
+      z-index: 10;
+    }
+
+    .notice {
+      margin-top: 20px;
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: var(--muted2);
+    }
+
+    .notice .icon { font-size: 18px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <div class="logo-icon">🎓</div>
+      Edu<span>Portal</span>
+    </div>
+    <button class="back-btn" onclick="history.back()">← Back to Lessons</button>
+  </nav>
+
+  <main>
+    <div class="video-title" id="videoTitle">Loading…</div>
+
+    <div class="player-wrapper" id="playerWrapper"
+         oncontextmenu="return false;"
+         onselectstart="return false;"
+         ondragstart="return false;">
+      <iframe
+        id="videoFrame"
+        src=""
+        allow="autoplay"
+        allowfullscreen
+        referrerpolicy="no-referrer"
+      ></iframe>
+      <div class="player-overlay"></div>
+      <div class="shield"></div>
+    </div>
+
+    <div class="notice">
+      <span class="icon">🔒</span>
+      <span>This video is for viewing only. Downloading or sharing is not permitted.</span>
+    </div>
+  </main>
+
+  <script>
+    // Auth guard
+    const session = JSON.parse(localStorage.getItem('session') || 'null');
+    if (!session || session.role !== 'student') window.location.href = 'index.html';
+
+    const videoData = JSON.parse(localStorage.getItem('currentVideo') || 'null');
+    if (!videoData) { history.back(); }
+
+    document.getElementById('videoTitle').textContent = videoData.title;
+
+    // Google Drive embed URL — &rm=minimal hides download button
+    const src = `https://drive.google.com/file/d/${videoData.driveId}/preview?rm=minimal`;
+    document.getElementById('videoFrame').src = src;
+
+    // Block keyboard shortcuts for saving
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && ['s','u','p'].includes(e.key.toLowerCase())) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
