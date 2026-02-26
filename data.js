@@ -36,9 +36,9 @@ const COURSES = [
     description: "HTML, CSS, JavaScript from the ground up.",
     thumbnail: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=400&q=80",
     lessons: [
-      { id: "l1", title: "Lesson 1 — Introduction to HTML",    duration: "1h 20m", driveId: "YOUR_DRIVE_FILE_ID_HERE", description: "Tags, structure, semantics." },
-      { id: "l2", title: "Lesson 2 — CSS Styling Basics",      duration: "1h 45m", driveId: "YOUR_DRIVE_FILE_ID_HERE", description: "Selectors, box model, flexbox." },
-      { id: "l3", title: "Lesson 3 — JavaScript Essentials",   duration: "2h 10m", driveId: "YOUR_DRIVE_FILE_ID_HERE", description: "Variables, functions, DOM." },
+      { id: "l1", title: "Lesson 1 — Introduction to HTML",    duration: "1h 20m", driveId: "https://drive.google.com/file/d/1YgzVcnO3J779BcCQrGLd20duyHpN9fuP/view?usp=sharing", description: "Tags, structure, semantics." },
+      { id: "l2", title: "Lesson 2 — CSS Styling Basics",      duration: "1h 45m", driveId: "https://drive.google.com/file/d/1YgzVcnO3J779BcCQrGLd20duyHpN9fuP/view?usp=sharing", description: "Selectors, box model, flexbox." },
+      { id: "l3", title: "Lesson 3 — JavaScript Essentials",   duration: "2h 10m", driveId: "Yhttps://drive.google.com/file/d/1YgzVcnO3J779BcCQrGLd20duyHpN9fuP/view?usp=sharing", description: "Variables, functions, DOM." },
     ]
   },
   {
