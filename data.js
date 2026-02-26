@@ -36,7 +36,7 @@ const COURSES = [
     description: "HTML, CSS, JavaScript from the ground up.",
     thumbnail: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=400&q=80",
     lessons: [
-      { id: "l1", title: "Lesson 1 — Introduction to HTML",    duration: "1h 20m", driveId: "1YgzVcnO3J779BcCQrGLd20duyHpN9fuP", description: "Tags, structure, semantics." },
+      { id: "l1", title: "Lesson 1 — Introduction to HTML",    duration: "1h 20m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Tags, structure, semantics." },
       { id: "l2", title: "Lesson 2 — CSS Styling Basics",      duration: "1h 45m", driveId: "1YgzVcnO3J779BcCQrGLd20duyHpN9fuP", description: "Selectors, box model, flexbox." },
       { id: "l3", title: "Lesson 3 — JavaScript Essentials",   duration: "2h 10m", driveId: "1YgzVcnO3J779BcCQrGLd20duyHpN9fuP", description: "Variables, functions, DOM." },
     ]

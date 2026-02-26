@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduPortal — GitHub Pages Deployment Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #1f2937;
+      --border: #21262d;
+      --border2: #2d3748;
+      --accent: #f97316;
+      --accent2: #fb923c;
+      --green: #3fb950;
+      --blue: #58a6ff;
+      --yellow: #d29922;
+      --red: #f85149;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --muted2: #c9d1d9;
+      --code-bg: #0d1117;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(160deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 40px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.3);
+      color: var(--accent);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      color: var(--muted2);
+      font-size: 16px;
+      max-width: 560px;
+      margin: 0 auto 28px;
+    }
+
+    .time-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: var(--muted2);
+    }
+
+    /* PROGRESS NAV */
+    .progress-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 40px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .progress-item {
+      display: flex; align-items: center; gap: 8px;
+      white-space: nowrap;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+    .progress-item:hover { color: var(--text); background: var(--surface2); }
+
+    .progress-num {
+      width: 22px; height: 22px;
+      background: var(--border2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+    }
+
+    .progress-item.phase1 .progress-num { background: rgba(88,166,255,0.2); color: var(--blue); }
+    .progress-item.phase2 .progress-num { background: rgba(249,115,22,0.2); color: var(--accent); }
+    .progress-item.phase3 .progress-num { background: rgba(63,185,80,0.2); color: var(--green); }
+    .progress-item.phase4 .progress-num { background: rgba(210,153,34,0.2); color: var(--yellow); }
+
+    /* MAIN */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    /* PHASE HEADER */
+    .phase {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 32px;
+      margin-top: 60px;
+    }
+
+    .phase:first-of-type { margin-top: 0; }
+
+    .phase-icon {
+      width: 52px; height: 52px; flex-shrink: 0;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+    }
+
+    .phase-icon.blue   { background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.2); }
+    .phase-icon.orange { background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.2); }
+    .phase-icon.green  { background: rgba(63,185,80,0.1);  border: 1px solid rgba(63,185,80,0.2); }
+    .phase-icon.yellow { background: rgba(210,153,34,0.1); border: 1px solid rgba(210,153,34,0.2); }
+
+    .phase-info h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px; font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .phase-info p { color: var(--muted); font-size: 14px; }
+
+    /* STEP CARD */
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-header {
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 24px;
+    }
+
+    .step-num {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 15px;
+    }
+
+    .step-num.blue   { background: rgba(88,166,255,0.15);  color: var(--blue); }
+    .step-num.orange { background: rgba(249,115,22,0.15);  color: var(--accent); }
+    .step-num.green  { background: rgba(63,185,80,0.15);   color: var(--green); }
+    .step-num.yellow { background: rgba(210,153,34,0.15);  color: var(--yellow); }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px; font-weight: 700;
+    }
+
+    .step-body {
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .step-body p {
+      color: var(--muted2);
+      font-size: 14px;
+      padding-top: 16px;
+      margin-bottom: 14px;
+    }
+
+    /* IMAGE PLACEHOLDER / SCREENSHOT */
+    .screenshot {
+      background: var(--code-bg);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+
+    .screenshot-bar {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.r { background: var(--red); }
+    .dot.y { background: var(--yellow); }
+    .dot.g { background: var(--green); }
+
+    .screenshot-url {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 4px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-left: 8px;
+    }
+
+    .screenshot-body {
+      padding: 20px;
+      min-height: 80px;
+    }
+
+    /* VISUAL UI MOCKUPS */
+    .ui-mockup {
+      background: var(--surface2);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    .ui-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      color: var(--muted2);
+    }
+
+    .ui-row.highlight {
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.25);
+      color: var(--text);
+    }
+
+    .ui-row.selected {
+      background: rgba(63,185,80,0.1);
+      border: 1px solid rgba(63,185,80,0.2);
+      color: var(--text);
+    }
+
+    .ui-icon { font-size: 15px; flex-shrink: 0; }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .tag.green  { background: rgba(63,185,80,0.15);  color: var(--green); }
+    .tag.orange { background: rgba(249,115,22,0.15); color: var(--accent); }
+    .tag.blue   { background: rgba(88,166,255,0.15); color: var(--blue); }
+
+    /* CODE BLOCK */
+    code, .code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(99,110,123,0.1);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 2px 7px;
+      font-size: 12px;
+      color: var(--accent2);
+    }
+
+    .code-block {
+      background: #010409;
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 12px 0;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-block .comment { color: #8b949e; }
+    .code-block .key     { color: var(--blue); }
+    .code-block .val     { color: #a5d6ff; }
+    .code-block .str     { color: #79c0ff; }
+    .code-block .orange  { color: var(--accent2); }
+    .code-block .green   { color: var(--green); }
+
+    /* CALLOUT */
+    .callout {
+      display: flex; gap: 12px;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 13px;
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    .callout.info    { background: rgba(88,166,255,0.07);  border: 1px solid rgba(88,166,255,0.2); color: #aac8f5; }
+    .callout.warn    { background: rgba(210,153,34,0.07);  border: 1px solid rgba(210,153,34,0.25); color: #e3c07a; }
+    .callout.success { background: rgba(63,185,80,0.07);   border: 1px solid rgba(63,185,80,0.2); color: #7ee787; }
+    .callout.tip     { background: rgba(249,115,22,0.07);  border: 1px solid rgba(249,115,22,0.2); color: #fdba74; }
+
+    .callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* FILES LIST */
+    .file-list {
+      background: var(--code-bg);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 12px 0;
+    }
+
+    .file-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .file-item:last-child { border-bottom: none; }
+    .file-icon { font-size: 15px; }
+    .file-name { font-family: 'JetBrains Mono', monospace; color: var(--blue); }
+    .file-desc { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+    /* FINAL CARD */
+    .success-card {
+      background: linear-gradient(135deg, rgba(63,185,80,0.05), rgba(63,185,80,0.02));
+      border: 1px solid rgba(63,185,80,0.25);
+      border-radius: 16px;
+      padding: 36px;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .success-card .icon { font-size: 48px; margin-bottom: 16px; }
+    .success-card h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px; font-weight: 800;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+    .success-card p { color: var(--muted2); font-size: 14px; line-height: 1.7; }
+
+    .url-display {
+      display: inline-block;
+      background: var(--code-bg);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--accent2);
+      margin: 16px 0;
+    }
+
+    .button-row {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px;
+      border-radius: 9px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+    }
+    .btn.primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid var(--border2);
+      color: var(--muted2);
+    }
+    .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* CHECKLIST */
+    .checklist { margin: 12px 0; }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--muted2);
+      border-bottom: 1px solid rgba(33,38,45,0.6);
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-box {
+      width: 18px; height: 18px; flex-shrink: 0;
+      border: 1.5px solid var(--border2);
+      border-radius: 4px;
+      margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      color: var(--green);
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 40px 20px; }
+      .hero { padding: 40px 20px 36px; }
+      .progress-nav { padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📘 Deployment Guide</div>
+  <h1>Deploy <span>EduPortal</span> on<br>GitHub Pages</h1>
+  <p>Follow this step-by-step guide to get your lecture portal live on the internet — completely free.</p>
+  <div class="time-badge">⏱ Estimated time: 15–20 minutes</div>
+</div>
+
+<!-- PROGRESS NAV -->
+<div class="progress-nav">
+  <a class="progress-item phase1" href="#phase1"><div class="progress-num">1</div> GitHub Account</a>
+  <a class="progress-item phase2" href="#phase2"><div class="progress-num">2</div> Create Repository</a>
+  <a class="progress-item phase3" href="#phase3"><div class="progress-num">3</div> Upload Files</a>
+  <a class="progress-item phase4" href="#phase4"><div class="progress-num">4</div> Enable Pages</a>
+  <a class="progress-item phase1" href="#phase5"><div class="progress-num">5</div> Configure Portal</a>
+  <a class="progress-item phase2" href="#phase6"><div class="progress-num">6</div> Add Videos</a>
+  <a class="progress-item phase3" href="#phase7"><div class="progress-num">7</div> Update & Done</div></a>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+  <!-- ──────────────────────────────────────── PHASE 1 -->
+  <div class="phase" id="phase1">
+    <div class="phase-icon blue">🔑</div>
+    <div class="phase-info">
+      <h2>Phase 1 — GitHub Account</h2>
+      <p>You need a free GitHub account to host your portal.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num blue">1</div>
+      <div class="step-title">Create a free GitHub account (skip if you have one)</div>
+    </div>
+    <div class="step-body">
+      <p>Go to <strong>github.com</strong> and click <strong>"Sign up"</strong>. Enter your email, create a username and password, and verify your email.</p>
+      <div class="callout info">
+        <div class="callout-icon">ℹ</div>
+        <div>GitHub is completely free for hosting static websites. No credit card needed.</div>
+      </div>
+      <div class="screenshot">
+        <div class="screenshot-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="screenshot-url">github.com/signup</div>
+        </div>
+        <div class="screenshot-body">
+          <div class="ui-mockup">
+            <div style="text-align:center;padding:16px 0;">
+              <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:20px;">Create your account</div>
+              <div style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;margin-bottom:10px;text-align:left;font-size:13px;color:var(--muted)">Enter your email address...</div>
+              <div style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;margin-bottom:10px;text-align:left;font-size:13px;color:var(--muted)">Create a password...</div>
+              <div style="background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;margin-bottom:16px;text-align:left;font-size:13px;color:var(--muted)">Enter a username...</div>
+              <div style="background:#238636;border-radius:8px;padding:10px;color:#fff;font-weight:700;font-size:14px;">Continue →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────── PHASE 2 -->
+  <div class="phase" id="phase2">
+    <div class="phase-icon orange">📁</div>
+    <div class="phase-info">
+      <h2>Phase 2 — Create a Repository</h2>
+      <p>A repository is like a folder on GitHub that holds your portal files.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num orange">2</div>
+      <div class="step-title">Click "New repository" from the GitHub homepage</div>
+    </div>
+    <div class="step-body">
+      <p>After logging in, click the <strong>green "New"</strong> button on the left sidebar, or go to <code>github.com/new</code>.</p>
+      <div class="screenshot">
+        <div class="screenshot-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="screenshot-url">github.com</div>
+        </div>
+        <div class="screenshot-body">
+          <div class="ui-mockup">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <div style="font-size:13px;color:var(--muted);">Repositories</div>
+              <div style="background:#238636;border-radius:6px;padding:6px 14px;color:#fff;font-size:13px;font-weight:700;">⊕ New</div>
+            </div>
+            <div class="ui-row highlight"><div class="ui-icon">📁</div> Click the green <strong>"New"</strong> button here</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num orange">3</div>
+      <div class="step-title">Fill in the repository details</div>
+    </div>
+    <div class="step-body">
+      <p>On the "Create a new repository" page, fill these fields:</p>
+      <div class="screenshot">
+        <div class="screenshot-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="screenshot-url">github.com/new</div>
+        </div>
+        <div class="screenshot-body">
+          <div class="ui-mockup">
+            <div style="margin-bottom:14px;">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.8px;">Repository name *</div>
+              <div class="ui-row highlight"><div class="ui-icon">✏️</div> Type: <strong>edu-portal</strong> &nbsp;<span class="tag green">✓ Available</span></div>
+            </div>
+            <div style="margin-bottom:14px;">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.8px;">Visibility</div>
+              <div class="ui-row selected"><div class="ui-icon">🔓</div> <strong>Public</strong> — required for free GitHub Pages</div>
+              <div class="ui-row"><div class="ui-icon">🔒</div> Private (requires paid plan for Pages)</div>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.8px;">Initialize</div>
+              <div class="ui-row highlight"><div class="ui-icon">☑️</div> <strong>Add a README file</strong> — check this box</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div>Set visibility to <strong>Public</strong>. Free GitHub Pages only works with public repositories.</div>
+      </div>
+      <p>Then scroll down and click the green <strong>"Create repository"</strong> button.</p>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────── PHASE 3 -->
+  <div class="phase" id="phase3">
+    <div class="phase-icon green">📤</div>
+    <div class="phase-info">
+      <h2>Phase 3 — Upload Your Files</h2>
+      <p>Upload the 5 EduPortal files directly from your browser — no coding required.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num green">4</div>
+      <div class="step-title">Open the upload page in your new repository</div>
+    </div>
+    <div class="step-body">
+      <p>Inside your new repository, click <strong>"uploading an existing file"</strong> link, or click the <strong>"Add file"</strong> button → <strong>"Upload files"</strong>.</p>
+      <div class="screenshot">
+        <div class="screenshot-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="screenshot-url">github.com/yourusername/edu-portal</div>
+        </div>
+        <div class="screenshot-body">
+          <div class="ui-mockup">
+            <div style="display:flex;gap:8px;margin-bottom:14px;justify-content:flex-end;">
+              <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:7px 14px;font-size:13px;color:var(--muted2);">Code ▾</div>
+              <div class="ui-row highlight" style="padding:7px 14px;margin:0;border-radius:6px;"><strong>Add file ▾</strong></div>
+            </div>
+            <div class="ui-row selected" style="margin-top:8px;"><div class="ui-icon">📤</div> <strong>Upload files</strong> — click this</div>
+            <div class="ui-row"><div class="ui-icon">✏️</div> Create new file</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num green">5</div>
+      <div class="step-title">Drag and drop all 5 portal files</div>
+    </div>
+    <div class="step-body">
+      <p>From your downloaded EduPortal folder, drag all these files into the GitHub upload area:</p>
+      <div class="file-list">
+        <div class="file-item"><div class="file-icon">🟠</div><div class="file-name">data.js</div><div class="file-desc">All your data — edit this first</div></div>
+        <div class="file-item"><div class="file-icon">📄</div><div class="file-name">index.html</div><div class="file-desc">Login page</div></div>
+        <div class="file-item"><div class="file-icon">📄</div><div class="file-name">dashboard.html</div><div class="file-desc">Student course view</div></div>
+        <div class="file-item"><div class="file-icon">📄</div><div class="file-name">player.html</div><div class="file-desc">Video player</div></div>
+        <div class="file-item"><div class="file-icon">📄</div><div class="file-name">admin.html</div><div class="file-desc">Admin panel</div></div>
+      </div>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div>Select all 5 files at once and drag them together. Don't upload the folder itself — just the files inside it.</div>
+      </div>
+      <p>After uploading, scroll down and click <strong>"Commit changes"</strong> (the green button).</p>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────── PHASE 4 -->
+  <div class="phase" id="phase4">
+    <div class="phase-icon yellow">⚡</div>
+    <div class="phase-info">
+      <h2>Phase 4 — Enable GitHub Pages</h2>
+      <p>Turn on the free hosting feature to make your portal live.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num yellow">6</div>
+      <div class="step-title">Go to repository Settings</div>
+    </div>
+    <div class="step-body">
+      <p>In your repository, click the <strong>"Settings"</strong> tab in the top menu bar.</p>
+      <div class="screenshot">
+        <div class="screenshot-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="screenshot-url">github.com/yourusername/edu-portal</div>
+        </div>
+        <div class="screenshot-body">
+          <div class="ui-mockup">
+            <div style="display:flex;gap:4px;border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:12px;flex-wrap:wrap;">
+              <div class="ui-row" style="padding:6px 10px;margin:0;font-size:13px;">💻 Code</div>
+              <div class="ui-row" style="padding:6px 10px;margin:0;font-size:13px;">🐛 Issues</div>
+              <div class="ui-row" style="padding:6px 10px;margin:0;font-size:13px;">🔀 Pull requests</div>
+              <div class="ui-row highlight" style="padding:6px 10px;margin:0;font-size:13px;"><strong>⚙ Settings</strong> ← click here</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num yellow">7</div>
+      <div class="step-title">Find the "Pages" section in the left sidebar</div>
+    </div>
+    <div class="step-body">
+      <p>In the Settings page, scroll down the <strong>left sidebar</strong> until you see <strong>"Pages"</strong> under the "Code and automation" section. Click it.</p>
+      <div class="screenshot">
+        <div class="screenshot-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="screenshot-url">github.com/yourusername/edu-portal/settings</div>
+        </div>
+        <div class="screenshot-body">
+          <div class="ui-mockup" style="display:flex;gap:20px;">
+            <div style="min-width:160px;">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.8px;">Code and automation</div>
+              <div class="ui-row" style="font-size:13px;padding:8px 10px;margin:2px 0;">Branches</div>
+              <div class="ui-row" style="font-size:13px;padding:8px 10px;margin:2px 0;">Actions ▾</div>
+              <div class="ui-row selected" style="font-size:13px;padding:8px 10px;margin:2px 0;"><strong>📄 Pages</strong> ← click</div>
+              <div class="ui-row" style="font-size:13px;padding:8px 10px;margin:2px 0;">Environments</div>
+            </div>
+            <div style="flex:1;color:var(--muted);font-size:13px;padding-top:8px;">→ GitHub Pages settings will appear here</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num yellow">8</div>
+      <div class="step-title">Set the source branch to "main"</div>
+    </div>
+    <div class="step-body">
+      <p>Under <strong>"Build and deployment"</strong>, change the Source dropdown to <strong>"Deploy from a branch"</strong>, then set:</p>
+      <div class="screenshot">
+        <div class="screenshot-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="screenshot-url">github.com/yourusername/edu-portal/settings/pages</div>
+        </div>
+        <div class="screenshot-body">
+          <div class="ui-mockup">
+            <div style="margin-bottom:14px;">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Source</div>
+              <div class="ui-row selected"><div class="ui-icon">⚙</div> Deploy from a branch</div>
+            </div>
+            <div>
+              <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Branch</div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <div class="ui-row highlight" style="flex:1;margin:0;"><strong>main</strong> &nbsp;<span class="tag green">✓ select this</span></div>
+                <div class="ui-row" style="margin:0;"><strong>/ (root)</strong></div>
+                <div style="background:#238636;border-radius:6px;padding:8px 16px;color:#fff;font-size:13px;font-weight:700;white-space:nowrap;">Save</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout success">
+        <div class="callout-icon">✅</div>
+        <div>Click <strong>Save</strong>. GitHub will start building your site. This takes about 1–2 minutes.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num yellow">9</div>
+      <div class="step-title">Find your live URL</div>
+    </div>
+    <div class="step-body">
+      <p>After saving, refresh the Settings → Pages page. You'll see a green banner with your live URL:</p>
+      <div class="callout success">
+        <div class="callout-icon">🎉</div>
+        <div><strong>Your site is live at:</strong><br>
+        <code>https://yourusername.github.io/edu-portal/</code><br>
+        Replace <code>yourusername</code> with your actual GitHub username.</div>
+      </div>
+      <div class="callout info">
+        <div class="callout-icon">⏱</div>
+        <div>If the URL shows a 404 page, wait 2–3 minutes and refresh. GitHub Pages needs a moment to build the first time.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────── PHASE 5 -->
+  <div class="phase" id="phase5">
+    <div class="phase-icon blue">⚙️</div>
+    <div class="phase-info">
+      <h2>Phase 5 — Configure Your Portal</h2>
+      <p>Edit data.js to add your students, courses, and change the admin password.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num blue">10</div>
+      <div class="step-title">Open data.js and change the admin password</div>
+    </div>
+    <div class="step-body">
+      <p>In your repository, click on <code>data.js</code> to open it, then click the <strong>pencil ✏️ icon</strong> to edit it.</p>
+      <p>Find this line and change the password:</p>
+      <div class="code-block">
+<span class="comment">// Change "admin123" to something secure!</span>
+<span class="key">const</span> <span class="val">ADMIN_CREDENTIALS</span> = {
+  <span class="str">username</span>: <span class="orange">"admin"</span>,
+  <span class="str">password</span>: <span class="green">"YourNewPassword123"</span>   <span class="comment">← change this</span>
+};
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num blue">11</div>
+      <div class="step-title">Add your students</div>
+    </div>
+    <div class="step-body">
+      <p>Find the <code>USERS</code> array and add/edit students. Each student needs a unique <code>id</code>:</p>
+      <div class="code-block">
+<span class="key">const</span> <span class="val">USERS</span> = [
+  {
+    <span class="str">id</span>: <span class="orange">"u1"</span>,
+    <span class="str">username</span>: <span class="orange">"ahmed"</span>,        <span class="comment">← login username</span>
+    <span class="str">password</span>: <span class="orange">"mypass123"</span>,    <span class="comment">← login password</span>
+    <span class="str">name</span>: <span class="orange">"Ahmed Silva"</span>,    <span class="comment">← display name</span>
+    <span class="str">courses</span>: [<span class="green">"c1"</span>, <span class="green">"c2"</span>]  <span class="comment">← which courses they see</span>
+  },
+  {
+    <span class="str">id</span>: <span class="orange">"u2"</span>,
+    <span class="str">username</span>: <span class="orange">"priya"</span>,
+    <span class="str">password</span>: <span class="orange">"pass456"</span>,
+    <span class="str">name</span>: <span class="orange">"Priya Kumar"</span>,
+    <span class="str">courses</span>: [<span class="green">"c1"</span>]  <span class="comment">← only Course 1</span>
+  },
+];
+      </div>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div>The <code>courses</code> array controls access. If a student should only see Course 1, put <code>["c1"]</code>. For Courses 1 and 3: <code>["c1","c3"]</code>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────── PHASE 6 -->
+  <div class="phase" id="phase6">
+    <div class="phase-icon orange">🎬</div>
+    <div class="phase-info">
+      <h2>Phase 6 — Add Your Videos</h2>
+      <p>Upload lectures to Google Drive and connect them to your lessons.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num orange">12</div>
+      <div class="step-title">Upload your video to Google Drive</div>
+    </div>
+    <div class="step-body">
+      <p>Go to <strong>drive.google.com</strong> and upload your lecture video. After uploading:</p>
+      <div class="checklist">
+        <div class="check-item"><div class="check-box">→</div> Right-click the video file in Drive</div>
+        <div class="check-item"><div class="check-box">→</div> Click <strong>"Share"</strong></div>
+        <div class="check-item"><div class="check-box">→</div> Under "General access", change to <strong>"Anyone with the link"</strong></div>
+        <div class="check-item"><div class="check-box">→</div> Click <strong>"Copy link"</strong></div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div>Without setting "Anyone with the link", students won't be able to watch the video (it will show an error inside the player).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num orange">13</div>
+      <div class="step-title">Extract the File ID from the Google Drive link</div>
+    </div>
+    <div class="step-body">
+      <p>The link you copied looks like this. You only need the highlighted part:</p>
+      <div class="code-block">
+https://drive.google.com/file/d/<span class="green">1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74O</span>/view?usp=sharing
+                                  <span class="comment">↑ THIS is your File ID — copy only this part</span>
+      </div>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div>The File ID is the long string between <code>/d/</code> and <code>/view</code>. It's usually 33–44 characters long.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num orange">14</div>
+      <div class="step-title">Paste the File ID into data.js</div>
+    </div>
+    <div class="step-body">
+      <p>In <code>data.js</code>, find the lesson you want to link and replace <code>YOUR_DRIVE_FILE_ID_HERE</code> with your File ID:</p>
+      <div class="code-block">
+<span class="key">lessons</span>: [
+  {
+    <span class="str">id</span>: <span class="orange">"l1"</span>,
+    <span class="str">title</span>: <span class="orange">"Lesson 1 — Introduction"</span>,
+    <span class="str">duration</span>: <span class="orange">"1h 20m"</span>,
+    <span class="str">driveId</span>: <span class="green">"1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74O"</span>,  <span class="comment">← paste here</span>
+    <span class="str">description</span>: <span class="orange">"Introduction to the course."</span>
+  },
+]
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────── PHASE 7 -->
+  <div class="phase" id="phase7">
+    <div class="phase-icon green">🚀</div>
+    <div class="phase-info">
+      <h2>Phase 7 — Save & Go Live</h2>
+      <p>Every time you update data.js, commit the change and your site updates automatically.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num green">15</div>
+      <div class="step-title">Commit your changes in GitHub</div>
+    </div>
+    <div class="step-body">
+      <p>After editing <code>data.js</code> in the GitHub web editor, scroll to the bottom and click the green <strong>"Commit changes"</strong> button.</p>
+      <div class="screenshot">
+        <div class="screenshot-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="screenshot-url">github.com/yourusername/edu-portal/edit/main/data.js</div>
+        </div>
+        <div class="screenshot-body">
+          <div class="ui-mockup">
+            <div style="margin-bottom:12px;">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">Commit message</div>
+              <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;font-size:13px;color:var(--muted2);">Update student list and add video IDs</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <div style="background:#238636;border-radius:6px;padding:9px 18px;color:#fff;font-size:13px;font-weight:700;">Commit changes</div>
+              <div style="background:transparent;border:1px solid var(--border2);border-radius:6px;padding:9px 18px;color:var(--muted2);font-size:13px;">Cancel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout success">
+        <div class="callout-icon">⏱</div>
+        <div>After committing, wait about <strong>60–90 seconds</strong> for GitHub Pages to rebuild. Then refresh your portal URL — changes are live!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num green">16</div>
+      <div class="step-title">Test everything before sharing</div>
+    </div>
+    <div class="step-body">
+      <p>Before giving the link to students, verify these things:</p>
+      <div class="checklist">
+        <div class="check-item"><div class="check-box">☐</div> Login as admin — check admin panel loads correctly</div>
+        <div class="check-item"><div class="check-box">☐</div> Login as a student — verify only their assigned courses appear</div>
+        <div class="check-item"><div class="check-box">☐</div> Click a lesson — video loads and plays in the player</div>
+        <div class="check-item"><div class="check-box">☐</div> Right-click on video — no download option visible</div>
+        <div class="check-item"><div class="check-box">☐</div> Try a different student — confirm they see different courses</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-card">
+    <div class="icon">🎓</div>
+    <h2>Your Portal is Live!</h2>
+    <p>Share this URL with your students:</p>
+    <div class="url-display">https://yourusername.github.io/edu-portal/</div>
+    <p style="margin-top:8px;">To add more students or courses in the future, just edit <code>data.js</code> in GitHub and commit. Done in under a minute.</p>
+    <div class="button-row">
+      <a href="https://github.com" target="_blank" class="btn primary">→ Open GitHub</a>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- QUICK REFERENCE -->
+  <div style="margin-bottom:16px;">
+    <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;">📋 Quick Reference</div>
+    <div style="color:var(--muted);font-size:14px;">Common tasks after your portal is live.</div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num blue">?</div>
+      <div class="step-title">How to add a new student</div>
+    </div>
+    <div class="step-body">
+      <p>Edit <code>data.js</code> → add a new object to the <code>USERS</code> array → commit → done in ~2 minutes.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num orange">?</div>
+      <div class="step-title">How to add a new course</div>
+    </div>
+    <div class="step-body">
+      <p>Edit <code>data.js</code> → add a new object to the <code>COURSES</code> array with a unique <code>id</code> → add lessons with <code>driveId</code> → assign course ID to students in <code>USERS</code> → commit.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num green">?</div>
+      <div class="step-title">How to remove a student's access to a course</div>
+    </div>
+    <div class="step-body">
+      <p>Find the student in <code>USERS</code> → remove the course ID from their <code>courses</code> array → commit. The student won't see that course on next login.</p>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+</body>
+</html>
