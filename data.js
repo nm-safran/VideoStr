@@ -14,7 +14,8 @@ const ADMIN_CREDENTIALS = {
 //  "courses" lists course IDs this user can access.
 // ------------------------------------------------------------
 const USERS = [
-  { id: "u1", username: "u1", password: "qs4qs123", name: "Student",    courses: ["c1", "c2"] },
+  { id: "IQS02_1054_Aseef Ali", username: "IQS02_1054_Aseef Ali", password: "IQS02_1054", name: "Aseef Ali",    courses: ["c1"] },
+  { id: "IQS01_1031_Shafat", username: "IQS01_1031_Shafat", password: "IQS01_1031", name: "Shafat",    courses: ["c1"] },
   // { id: "u2", username: "student2", password: "pass456", name: "Bimal Fernando",  courses: ["c1"] },
   // { id: "u3", username: "student3", password: "pass789", name: "Chamari Perera",  courses: ["c2", "c3"] },
   // Add more students below ↓
@@ -36,8 +37,8 @@ const COURSES = [
     description: "Learn the fundamentals of quantity surveying and project management.",
     thumbnail: "https://tse4.mm.bing.net/th/id/OIP.rcWWEPYQ9huyfUoBhAN4-wHaDZ?rs=1&pid=ImgDetMain&o=7&rm=3",
     lessons: [
-      { id: "l1", title: "Lesson 1 — Introduction to HTML",    duration: "1h 20m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Tags, structure, semantics." },
-      { id: "l2", title: "Lesson 2 — CSS Styling Basics",      duration: "1h 45m", driveId: "1YgzVcnO3J779BcCQrGLd20duyHpN9fuP", description: "Selectors, box model, flexbox." },
+      { id: "l1", title: "Session 2 - Professional English",    duration: "1h 20m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Tags, structure, semantics." },
+      //
   
     ]
   },
