@@ -20,9 +20,17 @@ function safeString($value, int $maxLen = 120): string {
     if ($value === '') {
         return '';
     }
-    if (mb_strlen($value) > $maxLen) {
-        $value = mb_substr($value, 0, $maxLen);
+
+    if (function_exists('mb_strlen') && function_exists('mb_substr')) {
+        if (mb_strlen($value) > $maxLen) {
+            $value = mb_substr($value, 0, $maxLen);
+        }
+    } else {
+        if (strlen($value) > $maxLen) {
+            $value = substr($value, 0, $maxLen);
+        }
     }
+
     return $value;
 }
 

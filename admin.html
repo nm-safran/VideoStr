@@ -726,7 +726,23 @@
 
       try {
         const response = await fetch('login-tracker.php?action=list', { cache: 'no-store' });
-        const result = await response.json();
+        const rawText = await response.text();
+        let result;
+
+        try {
+          result = JSON.parse(rawText);
+        } catch (_) {
+          const snippet = escapeHtml((rawText || '').slice(0, 220)) || 'No response body';
+          body.innerHTML = `<tr><td colspan="6" style="color:var(--red)">Server returned non-JSON response (HTTP ${response.status}).<br><code style="color:var(--muted2)">${snippet}</code></td></tr>`;
+          return;
+        }
+
+        if (!response.ok || !result.ok) {
+          const msg = escapeHtml(result.error || `HTTP ${response.status}`);
+          body.innerHTML = `<tr><td colspan="6" style="color:var(--red)">Could not load logs: ${msg}</td></tr>`;
+          return;
+        }
+
         const logs = Array.isArray(result.logs) ? result.logs : [];
 
         if (!logs.length) {
@@ -754,8 +770,9 @@
             </tr>
           `;
         }).join('');
-      } catch (_) {
-        body.innerHTML = '<tr><td colspan="6" style="color:var(--red)">Could not load login records. Make sure login-tracker.php is uploaded to Hostinger.</td></tr>';
+      } catch (err) {
+        const msg = escapeHtml(err && err.message ? err.message : 'Unknown network error');
+        body.innerHTML = `<tr><td colspan="6" style="color:var(--red)">Could not load login records.<br><span style="color:var(--muted2)">${msg}</span></td></tr>`;
       }
     }
 
