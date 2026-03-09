@@ -286,6 +286,11 @@
     document.getElementById('greetingText').textContent = `Hello, ${session.name || session.username}`;
 
     const user = USERS.find(u => u.id === session.userId);
+    
+    // DEBUG: Log user and their lesson access
+    console.log('Current User:', user);
+    console.log('User ID:', session.userId);
+    console.log('Lesson Access:', user ? user.lessonAccess : null);
 
     function getAllowedLessons(course, currentUser) {
       const allLessons = Array.isArray(course.lessons) ? course.lessons : [];
@@ -295,11 +300,14 @@
 
       // Backward compatible: if no lessonAccess defined for this course, allow all lessons.
       if (!accessMap || !Object.prototype.hasOwnProperty.call(accessMap, course.id)) {
+        console.log(`No lessonAccess for course ${course.id}, showing all ${allLessons.length} lessons`);
         return allLessons;
       }
 
       const allowedIds = Array.isArray(accessMap[course.id]) ? accessMap[course.id] : [];
-      return allLessons.filter(lesson => allowedIds.includes(lesson.id));
+      const filtered = allLessons.filter(lesson => allowedIds.includes(lesson.id));
+      console.log(`Course ${course.id}: allowing ${filtered.length} of ${allLessons.length} lessons`, allowedIds);
+      return filtered;
     }
 
     function renderCourses() {
