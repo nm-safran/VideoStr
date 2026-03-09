@@ -20,33 +20,35 @@ const USERS = [
   { id: "IQS02_1054_Aseef Ali", username: "IQS02_1054_Aseef Ali", password: "IQS02_1054", name: "Aseef Ali",    courses: ["c1"], lessonAccess: { c1: ["l1", "l2"] } },
   { id: "IQS01_1031_Shafat", username: "IQS01_1031_Shafat", password: "IQS01_1031", name: "Shafat",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
 
-  { id: "user1", username: "user1", password: "12345", name: "user1",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "IQS02_1039_Leslie Ashlyn	Leslie Ashlyn", username: "IQS02_1039_Leslie Ashlyn", password: "IQS02_1039", name: "Leslie Ashlyn",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "IQS02_1042_Rawan", username: "IQS02_1042_Rawan", password: "IQS02_1042", name: "Rawan",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "IQS02_1043_Ammar", username: "IQS02_1043_Ammar", password: "IQS02_1043", name: "Ammar",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "IQS02_1046_Mohamed Insaf", username: "IQS02_1046_Mohamed Insaf", password: "IQS02_1046", name: "Mohamed Insaf",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "IQS02_1049_Mussab Habiballa", username: "IQS02_1049_Mussab Habiballa", password: "IQS02_1049", name: "Mussab Habiballa",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "IQS02_1070_Christian Dave Bulac", username: "IQS02_1070_Christian Dave Bulac", password: "IQS02_1070", name: "Christian Dave Bulac",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "IQS02_1065_Faisal Alqahtani", username: "IQS02_1065_Faisal Alqahtani", password: "IQS02_1065", name: "Faisal Alqahtani",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "IQS02_1068_Mitzie Ocan", username: "IQS02_1068_Mitzie Ocan", password: "IQS02_1068", name: "Mitzie Ocan",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "APC37_1681_Mohammed Hussain", username: "APC37_1681_Mohammed Hussain", password: "APC37_1681", name: "Mohammed Hussain",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "APC03_1124_Asmi", username: "APC03_1124_Asmi", password: "APC03_1124", name: "Asmi",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "IQS02_1071_Sharon Raviz", username: "IQS02_1071_Sharon Raviz", password: "IQS02_1071", name: "Sharon Raviz",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "APC35_1606_Naveed Malik", username: "APC35_1606_Naveed Malik", password: "APC35_1606", name: "Naveed Malik",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "APC36_1648_Michael Qaisiyeh", username: "APC36_1648_Michael Qaisiyeh", password: "APC36_1648", name: "Michael Qaisiyeh",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "AQS30_1424_ Abayomi", username: "AQS30_1424_ Abayomi", password: "AQS30_1424", name: "Abayomi",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "APC37_1674_Rumesh Jayasuriya", username: "APC37_1674_Rumesh Jayasuriya", password: "APC37_1674", name: "Rumesh Jayasuriya",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "APC35_1611_Kago McCroty Sechele", username: "APC35_1611_Kago McCroty Sechele", password: "APC35_1611", name: "Kago McCroty Sechele",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "Dinesha", username: "Dinesha", password: "IQS_001", name: "Dinesha",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "Rashid Ahamed", username: "Rashid Ahamed", password: "IQS_002", name: "Rashid Ahamed",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "Ghassan Taha", username: "Ghassan Taha", password: "IQS_003", name: "Ghassan Taha",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "Saajith", username: "Saajith", password: "IQS_004", name: "Saajith",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "Ahamed Mashooth", username: "Ahamed Mashooth", password: "IQS_005", name: "Ahamed Mashooth",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "Asim Iqbal", username: "Asim Iqbal", password: "IQS_006", name: "Asim Iqbal",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "Sirajudeen Ihsan", username: "Sirajudeen Ihsan", password: "IQS_007", name: "Sirajudeen Ihsan",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
-  { id: "Mohamed Sajith", username: "Mohamed Sajith", password: "IQS_008", name: "Mohamed Sajith",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
+  { id: "user1", username: "user1", password: "12345", name: "user1",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+
+  // access for both sessions
+  { id: "IQS02_1039_Leslie Ashlyn	Leslie Ashlyn", username: "IQS02_1039_Leslie Ashlyn", password: "IQS02_1039", name: "Leslie Ashlyn",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "IQS02_1042_Rawan", username: "IQS02_1042_Rawan", password: "IQS02_1042", name: "Rawan",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "IQS02_1043_Ammar", username: "IQS02_1043_Ammar", password: "IQS02_1043", name: "Ammar",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "IQS02_1046_Mohamed Insaf", username: "IQS02_1046_Mohamed Insaf", password: "IQS02_1046", name: "Mohamed Insaf",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "IQS02_1049_Mussab Habiballa", username: "IQS02_1049_Mussab Habiballa", password: "IQS02_1049", name: "Mussab Habiballa",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "IQS02_1070_Christian Dave Bulac", username: "IQS02_1070_Christian Dave Bulac", password: "IQS02_1070", name: "Christian Dave Bulac",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "IQS02_1065_Faisal Alqahtani", username: "IQS02_1065_Faisal Alqahtani", password: "IQS02_1065", name: "Faisal Alqahtani",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "IQS02_1068_Mitzie Ocan", username: "IQS02_1068_Mitzie Ocan", password: "IQS02_1068", name: "Mitzie Ocan",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "APC37_1681_Mohammed Hussain", username: "APC37_1681_Mohammed Hussain", password: "APC37_1681", name: "Mohammed Hussain",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "APC03_1124_Asmi", username: "APC03_1124_Asmi", password: "APC03_1124", name: "Asmi",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "IQS02_1071_Sharon Raviz", username: "IQS02_1071_Sharon Raviz", password: "IQS02_1071", name: "Sharon Raviz",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "APC35_1606_Naveed Malik", username: "APC35_1606_Naveed Malik", password: "APC35_1606", name: "Naveed Malik",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "APC36_1648_Michael Qaisiyeh", username: "APC36_1648_Michael Qaisiyeh", password: "APC36_1648", name: "Michael Qaisiyeh",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "AQS30_1424_ Abayomi", username: "AQS30_1424_ Abayomi", password: "AQS30_1424", name: "Abayomi",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "APC37_1674_Rumesh Jayasuriya", username: "APC37_1674_Rumesh Jayasuriya", password: "APC37_1674", name: "Rumesh Jayasuriya",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "APC35_1611_Kago McCroty Sechele", username: "APC35_1611_Kago McCroty Sechele", password: "APC35_1611", name: "Kago McCroty Sechele",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "Dinesha", username: "Dinesha", password: "IQS_001", name: "Dinesha",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "Rashid Ahamed", username: "Rashid Ahamed", password: "IQS_002", name: "Rashid Ahamed",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "Ghassan Taha", username: "Ghassan Taha", password: "IQS_003", name: "Ghassan Taha",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "Saajith", username: "Saajith", password: "IQS_004", name: "Saajith",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "Ahamed Mashooth", username: "Ahamed Mashooth", password: "IQS_005", name: "Ahamed Mashooth",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "Asim Iqbal", username: "Asim Iqbal", password: "IQS_006", name: "Asim Iqbal",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "Sirajudeen Ihsan", username: "Sirajudeen Ihsan", password: "IQS_007", name: "Sirajudeen Ihsan",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "Mohamed Sajith", username: "Mohamed Sajith", password: "IQS_008", name: "Mohamed Sajith",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
  
-  // Add more students below ↓
+  // access for only session 2
 ];
 
 // ------------------------------------------------------------
@@ -65,8 +67,8 @@ const COURSES = [
     description: "Learn the fundamentals of quantity surveying and project management.",
     thumbnail: "https://tse4.mm.bing.net/th/id/OIP.rcWWEPYQ9huyfUoBhAN4-wHaDZ?rs=1&pid=ImgDetMain&o=7&rm=3",
     lessons: [
-      { id: "l1", title: "Session 1 - Professional English",    duration: "1h 20m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Tags, structure, semantics." },
-      { id: "l2", title: "Session 2 - Technical Writing",       duration: "1h 30m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Document structure, clarity, tone." },
+      // { id: "l1", title: "Session 1 - Professional English",    duration: "1h 20m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Tags, structure, semantics." },
+      { id: "l2", title: "Session 2 - Professional English for QS",       duration: "1h 30m", driveId: "17_-9Dvnp3CpmnK6r-hR3viSS2EbSEJBi", description: "cOMMUNICATION - Written" },
       { id: "l3", title: "Session 4 - Tender Evaluation",     duration: "", driveId: "1Asaam57JYZRvzDacnc2u_1E7-9zAc8GM", description: "Tender evaluation techniques." },
       // Add more lessons below ↓
     ]
