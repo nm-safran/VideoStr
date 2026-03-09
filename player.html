@@ -138,14 +138,14 @@
       */
     }
 
-    /* ── SHIELDS — block Google Drive bottom bar (download/settings buttons) ── */
-    /* We only cover the very bottom strip where GDrive puts its buttons */
-    .shield-bottom {
+    /* ── SHIELDS — block only risky right-side actions, keep playback controls visible ── */
+    .shield-bottom-right {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
+      bottom: 0; right: 0;
+      width: 220px;
       height: 52px;
       z-index: 10;
-      background: #000; /* solid black bar hides GDrive buttons */
+      background: linear-gradient(to left, #000 70%, transparent);
       pointer-events: auto;
     }
 
@@ -246,7 +246,7 @@
       ></iframe>
 
       <!-- Shields over Google Drive's own UI buttons -->
-      <div class="shield-bottom"></div>
+      <div class="shield-bottom-right"></div>
       <div class="shield-top-right"></div>
 
       <!-- Our fullscreen toggle button -->
