@@ -20,6 +20,7 @@ const USERS = [
   { id: "IQS02_1054_Aseef Ali", username: "IQS02_1054_Aseef Ali", password: "IQS02_1054", name: "Aseef Ali",    courses: ["c1"], lessonAccess: { c1: ["l1", "l2"] } },
   { id: "IQS01_1031_Shafat", username: "IQS01_1031_Shafat", password: "IQS01_1031", name: "Shafat",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
 
+  { id: "user1", username: "user1", password: "12345", name: "user1",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
   { id: "IQS02_1039_Leslie Ashlyn	Leslie Ashlyn", username: "IQS02_1039_Leslie Ashlyn", password: "IQS02_1039", name: "Leslie Ashlyn",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
   { id: "IQS02_1042_Rawan", username: "IQS02_1042_Rawan", password: "IQS02_1042", name: "Rawan",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
   { id: "IQS02_1043_Ammar", username: "IQS02_1043_Ammar", password: "IQS02_1043", name: "Ammar",    courses: ["c1"], lessonAccess: { c1: ["l3"] } },
