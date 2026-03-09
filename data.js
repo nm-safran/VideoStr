@@ -68,8 +68,8 @@ const COURSES = [
     thumbnail: "https://tse4.mm.bing.net/th/id/OIP.rcWWEPYQ9huyfUoBhAN4-wHaDZ?rs=1&pid=ImgDetMain&o=7&rm=3",
     lessons: [
       // { id: "l1", title: "Session 1 - Professional English",    duration: "1h 20m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Tags, structure, semantics." },
-      { id: "l2", title: "Session 2 - Professional English for QS",       duration: "1h 30m", driveId: "17_-9Dvnp3CpmnK6r-hR3viSS2EbSEJBi", description: "cOMMUNICATION - Written" },
-      { id: "l3", title: "Session 4 - Tender Evaluation",     duration: "", driveId: "1Asaam57JYZRvzDacnc2u_1E7-9zAc8GM", description: "Tender evaluation techniques." },
+      { id: "l2", title: "Session 2 - Professional English for QS",       duration: "1h 08m", driveId: "17_-9Dvnp3CpmnK6r-hR3viSS2EbSEJBi", description: "cOMMUNICATION - Written" },
+      { id: "l3", title: "Session 4 - Tender Evaluation",     duration: "1h 12m", driveId: "1Asaam57JYZRvzDacnc2u_1E7-9zAc8GM", description: "Tender evaluation techniques." },
       // Add more lessons below ↓
     ]
   },
