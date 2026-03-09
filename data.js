@@ -12,10 +12,13 @@ const ADMIN_CREDENTIALS = {
 //  USERS
 //  Add/remove students here.
 //  "courses" lists course IDs this user can access.
+//  Optional "lessonAccess" lets you control lessons per course.
+//  Example: lessonAccess: { c1: ["l1", "l3"] }
+//  If lessonAccess is omitted for a course, all lessons are allowed.
 // ------------------------------------------------------------
 const USERS = [
-  { id: "IQS02_1054_Aseef Ali", username: "IQS02_1054_Aseef Ali", password: "IQS02_1054", name: "Aseef Ali",    courses: ["c1"] },
-  { id: "IQS01_1031_Shafat", username: "IQS01_1031_Shafat", password: "IQS01_1031", name: "Shafat",    courses: ["c1"] },
+  { id: "IQS02_1054_Aseef Ali", username: "IQS02_1054_Aseef Ali", password: "IQS02_1054", name: "Aseef Ali",    courses: ["c1"], lessonAccess: { c1: ["l1"] } },
+  { id: "IQS01_1031_Shafat", username: "IQS01_1031_Shafat", password: "IQS01_1031", name: "Shafat",    courses: ["c1"], lessonAccess: { c1: ["l1"] } },
   // { id: "u2", username: "student2", password: "pass456", name: "Bimal Fernando",  courses: ["c1"] },
   // { id: "u3", username: "student3", password: "pass789", name: "Chamari Perera",  courses: ["c2", "c3"] },
   // Add more students below ↓

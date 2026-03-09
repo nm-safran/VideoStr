@@ -287,6 +287,21 @@
 
     const user = USERS.find(u => u.id === session.userId);
 
+    function getAllowedLessons(course, currentUser) {
+      const allLessons = Array.isArray(course.lessons) ? course.lessons : [];
+      const accessMap = currentUser && currentUser.lessonAccess && typeof currentUser.lessonAccess === 'object'
+        ? currentUser.lessonAccess
+        : null;
+
+      // Backward compatible: if no lessonAccess defined for this course, allow all lessons.
+      if (!accessMap || !Object.prototype.hasOwnProperty.call(accessMap, course.id)) {
+        return allLessons;
+      }
+
+      const allowedIds = Array.isArray(accessMap[course.id]) ? accessMap[course.id] : [];
+      return allLessons.filter(lesson => allowedIds.includes(lesson.id));
+    }
+
     function renderCourses() {
       const grid = document.getElementById('coursesGrid');
       const userCourses = COURSES.filter(c => user && user.courses.includes(c.id));
@@ -301,7 +316,9 @@
         return;
       }
 
-      grid.innerHTML = userCourses.map((c, i) => `
+      grid.innerHTML = userCourses.map((c, i) => {
+        const allowedLessons = getAllowedLessons(c, user);
+        return `
         <div class="course-card" style="animation-delay:${i * 0.08}s" onclick="showLessons('${c.id}')">
           <img class="course-thumb" src="${c.thumbnail}" alt="${c.title}" onerror="this.style.background='#1e2a3a';this.removeAttribute('src')" />
           <div class="course-body">
@@ -309,24 +326,36 @@
             <div class="course-title">${c.title}</div>
             <div class="course-desc">${c.description}</div>
             <div class="course-meta">
-              <span class="meta-item">📚 ${c.lessons.length} lesson${c.lessons.length !== 1 ? 's' : ''}</span>
+              <span class="meta-item">📚 ${allowedLessons.length} lesson${allowedLessons.length !== 1 ? 's' : ''}</span>
             </div>
           </div>
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 
     function showLessons(courseId) {
       const course = COURSES.find(c => c.id === courseId);
       if (!course) return;
+      const allowedLessons = getAllowedLessons(course, user);
 
       document.getElementById('coursesView').style.display = 'none';
       document.getElementById('lessonView').classList.add('active');
       document.getElementById('lessonCourseTitle').textContent = course.title;
       document.getElementById('lessonCourseDesc').textContent = course.description;
 
-      document.getElementById('lessonList').innerHTML = course.lessons.map((l, i) => `
-        <div class="lesson-item" onclick="openVideo('${l.driveId}', '${l.title.replace(/'/g,"\\'")}')">
+      if (!allowedLessons.length) {
+        document.getElementById('lessonList').innerHTML = `
+          <div class="empty-state" style="padding:32px;">
+            <div class="icon">🔒</div>
+            <h2>No lessons assigned in this course</h2>
+            <p>Contact your administrator to enable lesson access.</p>
+          </div>`;
+        return;
+      }
+
+      document.getElementById('lessonList').innerHTML = allowedLessons.map((l, i) => `
+        <div class="lesson-item" onclick="openVideo('${l.driveId}', '${l.title.replace(/'/g,"\\'")}', '${course.id.replace(/'/g,"\\'")}', '${l.id.replace(/'/g,"\\'")}')">
           <div class="lesson-num">${i + 1}</div>
           <div class="lesson-info">
             <div class="lesson-title">${l.title}</div>
@@ -343,12 +372,12 @@
       document.getElementById('lessonView').classList.remove('active');
     }
 
-    function openVideo(driveId, title) {
+    function openVideo(driveId, title, courseId, lessonId) {
       if (!driveId || driveId === 'YOUR_DRIVE_FILE_ID_HERE') {
         alert('Video not available yet. The admin needs to add the Google Drive file ID.');
         return;
       }
-      localStorage.setItem('currentVideo', JSON.stringify({ driveId, title }));
+      localStorage.setItem('currentVideo', JSON.stringify({ driveId, title, courseId, lessonId }));
       window.location.href = 'player.html';
     }
 

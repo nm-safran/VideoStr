@@ -260,20 +260,48 @@
     </div>
   </main>
 
+  <script src="data.js"></script>
   <script>
     // ── Auth guard ──
     const session = JSON.parse(localStorage.getItem('session') || 'null');
     if (!session || session.role !== 'student') window.location.href = 'index.html';
 
     const videoData = JSON.parse(localStorage.getItem('currentVideo') || 'null');
-    if (!videoData) { history.back(); }
+    if (!videoData || !videoData.courseId || !videoData.lessonId) {
+      alert('Please open the lesson from your dashboard.');
+      window.location.href = 'dashboard.html';
+    }
 
-    document.getElementById('videoTitle').textContent = videoData.title;
+    const user = USERS.find(u => u.id === session.userId);
+    if (!user) {
+      localStorage.removeItem('session');
+      window.location.href = 'index.html';
+    }
+
+    const course = COURSES.find(c => c.id === videoData.courseId);
+    const lesson = course && Array.isArray(course.lessons)
+      ? course.lessons.find(l => l.id === videoData.lessonId)
+      : null;
+
+    const hasCourseAccess = !!(course && Array.isArray(user.courses) && user.courses.includes(course.id));
+    const accessMap = user.lessonAccess && typeof user.lessonAccess === 'object' ? user.lessonAccess : null;
+    const hasLessonRestriction = !!(accessMap && Object.prototype.hasOwnProperty.call(accessMap, course ? course.id : ''));
+    const hasLessonAccess = !hasLessonRestriction
+      ? true
+      : Array.isArray(accessMap[course.id]) && accessMap[course.id].includes(videoData.lessonId);
+
+    if (!course || !lesson || !hasCourseAccess || !hasLessonAccess) {
+      alert('You do not have access to this lesson.');
+      window.location.href = 'dashboard.html';
+    }
+
+    document.getElementById('videoTitle').textContent = lesson.title || videoData.title;
 
     // ── Load video ──
     // ?rm=minimal  → hides Google Drive's own download/settings bar (best effort)
     // Note: we ALSO cover it with the black shield-bottom as a hard guarantee
-    const driveUrl = `https://drive.google.com/file/d/${videoData.driveId}/preview?rm=minimal`;
+    const safeDriveId = lesson.driveId || videoData.driveId;
+    const driveUrl = `https://drive.google.com/file/d/${safeDriveId}/preview?rm=minimal`;
     document.getElementById('videoFrame').src = driveUrl;
 
     // ── Our CSS-based fullscreen (stays inside our page, never leaves) ──
