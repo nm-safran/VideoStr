@@ -18,7 +18,7 @@ const ADMIN_CREDENTIALS = {
 // ------------------------------------------------------------
 const USERS = [
   { id: "IQS02_1054_Aseef Ali", username: "IQS02_1054_Aseef Ali", password: "IQS02_1054", name: "Aseef Ali",    courses: ["c1"], lessonAccess: { c1: ["l1"] } },
-  { id: "IQS01_1031_Shafat", username: "IQS01_1031_Shafat", password: "IQS01_1031", name: "Shafat",    courses: ["c1"], lessonAccess: { c1: ["l1"] } },
+  { id: "IQS01_1031_Shafat", username: "IQS01_1031_Shafat", password: "IQS01_1031", name: "Shafat",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
   // { id: "u2", username: "student2", password: "pass456", name: "Bimal Fernando",  courses: ["c1"] },
   // { id: "u3", username: "student3", password: "pass789", name: "Chamari Perera",  courses: ["c2", "c3"] },
   // Add more students below ↓
@@ -41,8 +41,8 @@ const COURSES = [
     thumbnail: "https://tse4.mm.bing.net/th/id/OIP.rcWWEPYQ9huyfUoBhAN4-wHaDZ?rs=1&pid=ImgDetMain&o=7&rm=3",
     lessons: [
       { id: "l1", title: "Session 2 - Professional English",    duration: "1h 20m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Tags, structure, semantics." },
-      //
-  
+      { id: "l2", title: "Session 3 - Technical Writing",       duration: "1h 30m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Document structure, clarity, tone." },
+      // Add more lessons below ↓
     ]
   },
   // {
