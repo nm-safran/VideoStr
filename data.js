@@ -66,7 +66,7 @@ const COURSES = [
     lessons: [
       { id: "l1", title: "Session 1 - Professional English",    duration: "1h 20m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Tags, structure, semantics." },
       { id: "l2", title: "Session 2 - Technical Writing",       duration: "1h 30m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Document structure, clarity, tone." },
-      { id: "l3", title: "Session 3 - Tender Evaluation",     duration: "", driveId: "1Asaam57JYZRvzDacnc2u_1E7-9zAc8GM", description: "Tender evaluation techniques." },
+      { id: "l3", title: "Session 4 - Tender Evaluation",     duration: "", driveId: "1Asaam57JYZRvzDacnc2u_1E7-9zAc8GM", description: "Tender evaluation techniques." },
       // Add more lessons below ↓
     ]
   },
