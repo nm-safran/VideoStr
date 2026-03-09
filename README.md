@@ -10,6 +10,7 @@ A static lecture video portal deployable on GitHub Pages.
 | `player.html` | Video player (Google Drive embed, download blocked) |
 | `admin.html` | Admin panel — view users, courses, access |
 | `data.js` | **⭐ All configuration lives here** |
+| `login-tracker.php` | Server-side login logs (IP, location, device) |
 
 ---
 
@@ -65,3 +66,10 @@ const COURSES = [
 ## Access Control
 Each user's `courses` array determines which courses they see.
 Example: `courses: ["c1", "c3"]` — student sees Course 1 and Course 3 only.
+
+## Login Location Tracking (Hostinger)
+- This project now includes `login-tracker.php` to record successful logins.
+- Admin can view records in **Admin Panel → Login Logs**.
+- Records include time, username, role, IP, approximate city/region/country, and device info.
+- Keep `storage/` writable on your hosting account (the script auto-creates `storage/login-logs.json`).
+- This feature requires PHP hosting (works on Hostinger, does not work on GitHub Pages static hosting).

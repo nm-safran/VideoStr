@@ -378,6 +378,7 @@
     <div class="nav-item" onclick="showSection('users')"><span class="icon">👥</span> Users</div>
     <div class="nav-item" onclick="showSection('courses')"><span class="icon">📚</span> Courses & Lessons</div>
     <div class="nav-item" onclick="showSection('access')"><span class="icon">🔐</span> Access Control</div>
+    <div class="nav-item" onclick="showSection('logs')"><span class="icon">📍</span> Login Logs</div>
     <div class="nav-item" onclick="showSection('setup')"><span class="icon">🛠</span> Setup Guide</div>
 
     <div class="sidebar-footer">
@@ -476,6 +477,35 @@
             </tr>
           </thead>
           <tbody id="accessTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LOGIN LOGS -->
+    <div class="section" id="section-logs">
+      <div class="section-header">
+        <h1>Login Logs</h1>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <button class="btn-primary" onclick="renderLoginLogs()">↻ Refresh</button>
+          <button class="btn-primary" onclick="clearLoginLogs()" style="background:transparent;border:1px solid var(--red);color:var(--red);">🗑 Clear Logs</button>
+        </div>
+      </div>
+      <p style="color:var(--muted2);font-size:14px;margin-bottom:24px;">
+        Login history captured from your Hostinger server. Location is approximate based on IP.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>User</th>
+              <th>Role</th>
+              <th>IP</th>
+              <th>Location</th>
+              <th>Device</th>
+            </tr>
+          </thead>
+          <tbody id="logsTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -595,6 +625,7 @@
       if (id === 'users') renderUsers();
       if (id === 'courses') renderCourses();
       if (id === 'access') renderAccess();
+      if (id === 'logs') renderLoginLogs();
       if (id === 'overview') renderStats();
     }
 
@@ -672,6 +703,82 @@
           }).join('') || '<span style="color:var(--muted);font-size:13px">No access</span>'}</td>
         </tr>
       `).join('');
+    }
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatLogTime(iso) {
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return '—';
+      return d.toLocaleString();
+    }
+
+    async function renderLoginLogs() {
+      const body = document.getElementById('logsTableBody');
+      body.innerHTML = '<tr><td colspan="6" style="color:var(--muted)">Loading login logs...</td></tr>';
+
+      try {
+        const response = await fetch('login-tracker.php?action=list', { cache: 'no-store' });
+        const result = await response.json();
+        const logs = Array.isArray(result.logs) ? result.logs : [];
+
+        if (!logs.length) {
+          body.innerHTML = '<tr><td colspan="6" style="color:var(--muted)">No login records yet.</td></tr>';
+          return;
+        }
+
+        body.innerHTML = logs.map(item => {
+          const displayName = item.name || item.username || 'Unknown';
+          const roleTag = item.role === 'admin'
+            ? '<span class="tag">Admin</span>'
+            : '<span class="tag">Student</span>';
+          const locationParts = [item.city, item.region, item.country].filter(Boolean);
+          const location = locationParts.length ? locationParts.join(', ') : 'Unknown';
+          const device = item.userAgent ? escapeHtml(item.userAgent) : 'Unknown';
+
+          return `
+            <tr>
+              <td>${escapeHtml(formatLogTime(item.timestamp))}</td>
+              <td><strong>${escapeHtml(displayName)}</strong><br><span style="color:var(--muted);font-size:12px">${escapeHtml(item.username || '')}</span></td>
+              <td>${roleTag}</td>
+              <td><code style="color:var(--muted2)">${escapeHtml(item.ip || 'Unknown')}</code></td>
+              <td>${escapeHtml(location)}</td>
+              <td style="max-width:320px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${device}">${device}</td>
+            </tr>
+          `;
+        }).join('');
+      } catch (_) {
+        body.innerHTML = '<tr><td colspan="6" style="color:var(--red)">Could not load login records. Make sure login-tracker.php is uploaded to Hostinger.</td></tr>';
+      }
+    }
+
+    async function clearLoginLogs() {
+      const ok = confirm('Delete all login logs? This action cannot be undone.');
+      if (!ok) return;
+
+      try {
+        const response = await fetch('login-tracker.php?action=clear', {
+          method: 'POST',
+          cache: 'no-store'
+        });
+        const result = await response.json();
+
+        if (!result.ok) {
+          alert('Could not clear logs.');
+          return;
+        }
+
+        renderLoginLogs();
+      } catch (_) {
+        alert('Could not clear logs. Please try again.');
+      }
     }
 
     // MODALS

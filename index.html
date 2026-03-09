@@ -182,6 +182,14 @@
       font-size: 12px;
       color: var(--muted);
     }
+
+    .privacy-note {
+      margin-top: 12px;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -205,6 +213,7 @@
     <button class="btn" onclick="handleLogin()">Sign In →</button>
 
     <div class="footer-note">Contact your administrator if you need access.</div>
+    <div class="privacy-note">For security, successful logins are recorded with IP-based approximate location and device details.</div>
   </div>
 
   <script src="data.js"></script>
@@ -219,6 +228,34 @@
       if (e.key === 'Enter') handleLogin();
     });
 
+    function trackLogin(loginData) {
+      const endpoint = 'login-tracker.php?action=log';
+      const payload = JSON.stringify(loginData);
+
+      try {
+        if (navigator.sendBeacon) {
+          const blob = new Blob([payload], { type: 'application/json' });
+          navigator.sendBeacon(endpoint, blob);
+          return;
+        }
+      } catch (_) {}
+
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+        keepalive: true
+      }).catch(() => {});
+    }
+
+    function completeLogin(loginData, redirectTo) {
+      localStorage.setItem('session', JSON.stringify(loginData.session));
+      trackLogin(loginData.log);
+      setTimeout(() => {
+        window.location.href = redirectTo;
+      }, 120);
+    }
+
     function handleLogin() {
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value;
@@ -227,16 +264,20 @@
 
       // Check admin
       if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-        localStorage.setItem('session', JSON.stringify({ role: 'admin', username }));
-        window.location.href = 'admin.html';
+        completeLogin({
+          session: { role: 'admin', username },
+          log: { role: 'admin', username, name: 'Administrator', userId: '' }
+        }, 'admin.html');
         return;
       }
 
       // Check students
       const user = USERS.find(u => u.username === username && u.password === password);
       if (user) {
-        localStorage.setItem('session', JSON.stringify({ role: 'student', userId: user.id, username, name: user.name }));
-        window.location.href = 'dashboard.html';
+        completeLogin({
+          session: { role: 'student', userId: user.id, username, name: user.name },
+          log: { role: 'student', userId: user.id, username, name: user.name }
+        }, 'dashboard.html');
         return;
       }
 
