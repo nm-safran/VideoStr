@@ -45,6 +45,7 @@ const USERS = [
   { id: "Asim Iqbal", username: "Asim Iqbal", password: "IQS_006", name: "Asim Iqbal",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
   { id: "Sirajudeen Ihsan", username: "Sirajudeen Ihsan", password: "IQS_007", name: "Sirajudeen Ihsan",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
   { id: "Mohamed Sajith", username: "Mohamed Sajith", password: "IQS_008", name: "Mohamed Sajith",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
+  { id: "Mohammed Rinos", username: "Mohammed Rinos", password: "IQS_014", name: "Mohammed Rinos",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
  
   // access for only session 2
   { id: "IQS01_1030_Irshadh", username: "IQS01_1030_Irshadh", password: "IQS01_1030", name: "Irshadh",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
