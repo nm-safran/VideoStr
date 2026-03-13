@@ -72,7 +72,7 @@ const USERS = [
   { id: "AQS37_1586_Shams Tasnuva", username: "AQS37_1586_Shams Tasnuva", password: "AQS37_1586", name: "Shams Tasnuva",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
   { id: "IQS02_1046_Lyka", username: "IQS02_1046_Lyka", password: "IQS02_1046", name: "Lyka",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
   { id: "AQS27_1096_Hazem", username: "AQS27_1096_Hazem", password: "AQS27_1096", name: "Hazem",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
-  { id: "IQS02_1048_Sajid Ullah Khattak", username: "IQS02_1048_Sajid Ullah Khattak", password: "IQS02_1048", name: "Sajid Ullah Khattak",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
+  { id: "IQS02_1048_Sajid Ullah Khattak", username: "IQS02_1048_Sajid Ullah Khattak", password: "IQS02_1048", name: "Sajid Ullah Khattak",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3"] } },
   { id: "IQS02_1050_Mohamed Kaleem", username: "IQS02_1050_Mohamed Kaleem", password: "IQS02_1050", name: "Mohamed Kaleem",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
   { id: "IQS02_1082_althaf", username: "IQS02_1082_althaf", password: "IQS02_1082", name: "althaf",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
   { id: "IQS02_1051_Muhammad Nafraz", username: "IQS02_1051_Muhammad Nafraz", password: "IQS02_1051", name: "Muhammad Nafraz",    courses: ["c1"], lessonAccess: { c1: ["l2"] } },
