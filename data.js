@@ -101,7 +101,7 @@ const USERS = [
   { id: "IQS02_1080_Safardeen", username: "IQS02_1080_Safardeen", password: "IQS02_1080", name: "Safardeen wahabdeen",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
   { id: "APC16_0034_Mohammed Noman", username: "APC16_0034_Mohammed Noman", password: "APC16_0034", name: "Mohammed Noman",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
   { id: "IQS02_1081_Job Tom Joseph", username: "IQS02_1081_Job Tom Joseph", password: "IQS02_1081", name: "Job Tom Joseph",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
- // { id: "Akmal Wasifullah", username: "Akmal Wasifullah", password: "IQS_012", name: "Akmal Wasifullah",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
+  { id: "IQS02_1088_Wasifullah", username: "IQS02_1088_Wasifullah", password: "IQS02_1088", name: "Akmal Wasifullah",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
   { id: "IQS02_1084_Muhammad Shaban", username: "IQS02_1084_Muhammad Shaban", password: "IQS02_1084", name: "Muhammad Shaban",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
 ];
 
