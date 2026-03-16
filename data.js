@@ -24,7 +24,7 @@ const USERS = [
   { id: "IQS02_1068_Mitzie Ocan", username: "IQS02_1068_Mitzie Ocan", password: "IQS02_1068", name: "Mitzie Ocan",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3","l5"] } },
   { id: "APC03_1124_Asmi", username: "APC03_1124_Asmi", password: "APC03_1124", name: "Asmi",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l5"] } },
   { id: "APC35_1611_Kago McCroty Sechele", username: "APC35_1611_Kago McCroty Sechele", password: "APC35_1611", name: "Kago McCroty Sechele",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l5"] } },
-  { id: "Dinesha", username: "IQS02_1053_Dinesha", password: "IQS02_1053", name: "Dinesha",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l5"] } },
+  { id: "IQS02_1053_Dinesha", username: "IQS02_1053_Dinesha", password: "IQS02_1053", name: "Dinesha",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l5"] } },
   { id: "IQS02_1067_Rinos", username: "IQS02_1067_Rinos", password: "IQS02_1067", name: "Mohammed Rinos",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l5"] } },
   { id: "IQS02_1087_Mohamed Riyaf", username: "IQS02_1087_Mohamed Riyaf", password: "IQS02_1087", name: "Mohamed Riyaf",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l5"] } },
   { id: "IQS02_1048_Sajid Ullah Khattak", username: "IQS02_1048_Sajid Ullah Khattak", password: "IQS02_1048", name: "Sajid Ullah Khattak",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l5"] } },
