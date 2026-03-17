@@ -41,6 +41,7 @@ const USERS = [
   { id: "APC38_1708_Majid Qayyum", username: "APC38_1708_Majid Qayyum", password: "APC38_1708", name: "Majid Qayyum",    courses: ["c1"], lessonAccess: { c1: ["l2", "l5"] } },
   { id: "APC36_1648_Michael Qaisiyeh", username: "APC36_1648_Michael Qaisiyeh", password: "APC36_1648", name: "Michael Qaisiyeh",    courses: ["c1"], lessonAccess: { c1: ["l3", "l5"] } },
   { id: "AQS30_1424_ Abayomi", username: "AQS30_1424_ Abayomi", password: "AQS30_1424", name: "Abayomi",    courses: ["c1"], lessonAccess: { c1: ["l3", "l5"] } },
+  { id: "IQS02_1038_Aadhil Feroz", username: "IQS02_1038_Aadhil Feroz", password: "IQS02_1038", name: "Aadhil Feroz",    courses: ["c1"], lessonAccess: { c1: ["l3","l5"] } },
   
   
 // access for one session
@@ -67,7 +68,6 @@ const USERS = [
   { id: "APC37_1676_Milhan", username: "APC37_1676_Milhan", password: "APC37_1676", name: "Milhan",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
   { id: "IQS02_1037_Shakir", username: "IQS02_1037_Shakir", password: "IQS02_1037", name: "Shakir",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
   { id: "MEP05_1642_Ancy Joseph", username: "MEP05_1642_Ancy Joseph", password: "MEP05_1642", name: "Ancy Joseph",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
-  { id: "IQS02_1038_Aadhil Feroz", username: "IQS02_1038_Aadhil Feroz", password: "IQS02_1038", name: "Aadhil Feroz",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
   { id: "IQS02_1040_Mohammad Insaf", username: "IQS02_1040_Mohammad Insaf", password: "IQS02_1040", name: "Mohammad Insaf",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
   { id: "IQS02_1041_Hisbu Rahman", username: "IQS02_1041_Hisbu Rahman", password: "IQS02_1041", name: "Hisbu Rahman",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
   { id: "IQS02_1044_Ahmad Faizan", username: "IQS02_1044_Ahmad Faizan", password: "IQS02_1044", name: "Ahmad Faizan",    courses: ["c1"], lessonAccess: { c1: ["l5"] } },
