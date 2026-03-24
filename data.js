@@ -103,8 +103,8 @@ const USERS = [
   { id: "IQS02_1084_Muhammad Shaban", username: "IQS02_1084_Muhammad Shaban", password: "IQS02_1084", name: "Muhammad Shaban",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
 
   // access denied
-  // { id: "IQS02_1085_Ihsan", username: "IQS02_1085_Ihsan", password: "IQS02_1085", name: "Sirajudeen Ihsan",    courses: ["c1"], lessonAccess: { c1: [""] } },
-  // { id: "IQS02_1048_Sajid Ullah Khattak", username: "IQS02_1048_Sajid Ullah Khattak", password: "IQS02_1048", name: "Sajid Ullah Khattak",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
+  { id: "IQS02_1085_Ihsan", username: "IQS02_1085_Ihsan", password: "IQS02_1085", name: "Sirajudeen Ihsan",    courses: ["c1"], lessonAccess: { c1: [] } },
+  { id: "IQS02_1048_Sajid Ullah Khattak", username: "IQS02_1048_Sajid Ullah Khattak", password: "IQS02_1048", name: "Sajid Ullah Khattak",    courses: ["c1"], lessonAccess: { c1: [] } },
 ];
 
 // ------------------------------------------------------------
