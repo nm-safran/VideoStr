@@ -105,6 +105,10 @@ const USERS = [
   // access denied
   { id: "IQS02_1085_Ihsan", username: "IQS02_1085_Ihsan", password: "IQS02_1085", name: "Sirajudeen Ihsan",    courses: ["c1"], lessonAccess: { c1: [] } },
   { id: "IQS02_1048_Sajid Ullah Khattak", username: "IQS02_1048_Sajid Ullah Khattak", password: "IQS02_1048", name: "Sajid Ullah Khattak",    courses: ["c1"], lessonAccess: { c1: [] } },
+
+  // new joinees
+  { id: "IQS02_1090_Renan N. Nool", username: "IQS02_1090_Renan N. Nool", password: "IQS02_1090", name: "Renan N. Nool",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
+  { id: "IQS02_1089_Fawaz", username: "IQS02_1089_Fawaz", password: "IQS02_1089", name: "Fawaz",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
 ];
 
 // ------------------------------------------------------------
