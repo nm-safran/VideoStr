@@ -34,7 +34,7 @@ const USERS = [
   { id: "AQS35_1616_Fareed", username: "AQS35_1616_Fareed", password: "AQS35_1616", name: "Fareed",    courses: ["c1"], lessonAccess: { c1: ["l2", "l4", "l5", "l6"] } },
   { id: "AQS37_1680_Kareemullah Farooqui", username: "AQS37_1680_Kareemullah Farooqui", password: "AQS37_1680", name: "Kareemullah Farooqui",    courses: ["c1"], lessonAccess: { c1: ["l2", "l4", "l5", "l6"] } },
   { id: "APC27_1116_Mohammad Oraib", username: "APC27_1116_Mohammad Oraib", password: "APC27_1116", name: "Mohammad Oraib",    courses: ["c1"], lessonAccess: { c1: ["l2", "l4", "l5", "l6"] } },
-  { id: "IQS02_1063_Prajwal Manmohan Pai", username: "IQS02_1063_Prajwal Manmohan Pai", password: "IQS02_1063", name: "Prajwal Manmohan Pai",    courses: ["c1"], lessonAccess: { c1: ["l2", "l4", "l5", "l6"] } },  
+  { id: "IQS02_1063_Prajwal Manmohan Pai", username: "IQS02_1063_Prajwal Manmohan Pai", password: "IQS02_1063", name: "Prajwal Manmohan Pai", courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6", "p1", "p2", "p3"] } },  
   { id: "APC34_1592_Javeed", username: "APC34_1592_Javeed", password: "APC34_1592", name: "Javeed",    courses: ["c1"], lessonAccess: { c1: ["l3", "l5", "l6"] } },
   { id: "AQS31_1469_Abdulaziz Alsowaidi", username: "AQS31_1469_Abdulaziz Alsowaidi", password: "AQS31_1469", name: "Abdulaziz Alsowaidi",    courses: ["c1"], lessonAccess: { c1: ["l2", "l4", "l5", "l6"] } },
   { id: "APC38_1708_Majid Qayyum", username: "APC38_1708_Majid Qayyum", password: "APC38_1708", name: "Majid Qayyum",    courses: ["c1"], lessonAccess: { c1: ["l2", "l4", "l5", "l6"] } },
