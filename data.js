@@ -25,8 +25,8 @@ const USERS = [
   { id: "APC03_1124_Asmi", username: "APC03_1124_Asmi", password: "APC03_1124", name: "Asmi",    courses: ["c1"], lessonAccess: { c1: ["l3", "l5", "l6"] } },
   { id: "APC35_1611_Kago McCroty Sechele", username: "APC35_1611_Kago McCroty Sechele", password: "APC35_1611", name: "Kago McCroty Sechele",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
   { id: "IQS02_1053_Dinesha", username: "IQS02_1053_Dinesha", password: "IQS02_1053", name: "Dinesha",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
-  { id: "IQS02_1067_Rinos", username: "IQS02_1067_Rinos", password: "IQS02_1067", name: "Mohammed Rinos",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
-  { id: "IQS02_1087_Mohamed Riyaf", username: "IQS02_1087_Mohamed Riyaf", password: "IQS02_1087", name: "Mohamed Riyaf",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
+  { id: "IQS02_1067_Rinos", username: "IQS02_1067_Rinos", password: "IQS02_1067", name: "Mohammed Rinos",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6", "p2", "p3"] } },
+  { id: "IQS02_1087_Mohamed Riyaf", username: "IQS02_1087_Mohamed Riyaf", password: "IQS02_1087", name: "Mohamed Riyaf",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6", "p1", "p2", "p3"] } },
   
   // access for sessions
 
@@ -53,7 +53,7 @@ const USERS = [
   { id: "APC37_1681_Mohammed Hussain", username: "APC37_1681_Mohammed Hussain", password: "APC37_1681", name: "Mohammed Hussain",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1071_Sharon Raviz", username: "IQS02_1071_Sharon Raviz", password: "IQS02_1071", name: "Sharon Raviz",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "APC35_1606_Naveed Malik", username: "APC35_1606_Naveed Malik", password: "APC35_1606", name: "Naveed Malik",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
-  { id: "IQS02_1086_Mohamed Sajith", username: "IQS02_1086_Mohamed Sajith", password: "IQS02_1086", name: "Mohamed Sajith",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
+  { id: "IQS02_1086_Mohamed Sajith", username: "IQS02_1086_Mohamed Sajith", password: "IQS02_1086", name: "Mohamed Sajith",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6", "p1", "p2",] } },
   { id: "IQS01_1030_Irshadh", username: "IQS01_1030_Irshadh", password: "IQS01_1030", name: "Irshadh",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "AQS37_1652_Taufique", username: "AQS37_1652_Taufique", password: "AQS37_1652", name: "Taufique",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1032_Samuel Nartey", username: "IQS02_1032_Samuel Nartey", password: "IQS02_1032", name: "Samuel Nartey",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
@@ -83,10 +83,10 @@ const USERS = [
   { id: "IQS02_1059_Ahmed Askari", username: "IQS02_1059_Ahmed Askari", password: "IQS02_1059", name: "Ahmed Askari",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1060_Virgilio", username: "IQS02_1060_Virgilio", password: "IQS02_1060", name: "Virgilio",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1062_Prabu Sankar Yathindran", username: "IQS02_1062_Prabu Sankar Yathindran", password: "IQS02_1062", name: "Prabu Sankar Yathindran",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
-  { id: "APC37_1687_Praveen", username: "APC37_1687_Praveen", password: "APC37_1687", name: "Praveen",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
-  { id: "IQS02_1064_Azar", username: "IQS02_1064_Azar", password: "IQS02_1064", name: "Azar",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
+  { id: "APC37_1687_Praveen", username: "APC37_1687_Praveen", password: "APC37_1687", name: "Praveen",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6", "p3"] } },
+  { id: "IQS02_1064_Azar", username: "IQS02_1064_Azar", password: "IQS02_1064", name: "Azar",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6", "p1", "p2",] } },
   { id: "IQS02_1069_Nabeel Wali", username: "IQS02_1069_Nabeel Wali", password: "IQS02_1069", name: "Nabeel Wali",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
-  { id: "APC33_1547_Harsan Sasny", username: "APC33_1547_Harsan Sasny", password: "APC33_1547", name: "Harsan Sasny",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
+  { id: "APC33_1547_Harsan Sasny", username: "APC33_1547_Harsan Sasny", password: "APC33_1547", name: "Harsan Sasny",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6", "p3"] } },
   { id: "AQS36_1630_Nafeer", username: "AQS36_1630_Nafeer", password: "AQS36_1630", name: "Nafeer",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "AQS33_1545_Abdul Wasi", username: "AQS33_1545_Abdul Wasi", password: "AQS33_1545", name: "Abdul Wasi",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "APC37_1649_Asham", username: "APC37_1649_Asham", password: "APC37_1649", name: "Asham",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
@@ -100,7 +100,7 @@ const USERS = [
   { id: "APC16_0034_Mohammed Noman", username: "APC16_0034_Mohammed Noman", password: "APC16_0034", name: "Mohammed Noman",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1081_Job Tom Joseph", username: "IQS02_1081_Job Tom Joseph", password: "IQS02_1081", name: "Job Tom Joseph",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1088_Wasifullah", username: "IQS02_1088_Wasifullah", password: "IQS02_1088", name: "Akmal Wasifullah",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
-  { id: "IQS02_1084_Muhammad Shaban", username: "IQS02_1084_Muhammad Shaban", password: "IQS02_1084", name: "Muhammad Shaban",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
+  { id: "IQS02_1084_Muhammad Shaban", username: "IQS02_1084_Muhammad Shaban", password: "IQS02_1084", name: "Muhammad Shaban",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6", "p1", "p2", "p3"] } },
 
   // access denied
   { id: "IQS02_1085_Ihsan", username: "IQS02_1085_Ihsan", password: "IQS02_1085", name: "Sirajudeen Ihsan",    courses: ["c1"], lessonAccess: { c1: [] } },
@@ -133,6 +133,9 @@ const COURSES = [
       { id: "l3", title: "Session 4 - Tender Evaluation",     duration: "1h 12m", driveId: "1Asaam57JYZRvzDacnc2u_1E7-9zAc8GM", description: "Tender evaluation techniques." },
       { id: "l5", title: "Tendering - Session 5",     duration: "1h 40m", driveId: "1-O41ETau6dssKbkS6mT04BCTg632yMKc", description: "" },
       { id: "l6", title: "Tendering - Session 6",     duration: "2h 22m", driveId: "1W14YikOOm_d_Cp9D2sNpG0D7puQRKOUE", description: "" },
+      { id: "p1", title: "Construction Payment Process - Session 1", duration: "1h 50m", driveId: "1XNq6taDg_ThwvDVy-duT1lcVVPmrSri6", description: "" },
+      { id: "p2", title: "Construction Payment Process - Session 2", duration: "2h", driveId: "14fdvOTxf_hEAc_NtTl4ZuDA9NP_VER3m", description: "" },
+      { id: "p3", title: "Construction Payment Process - Session 3", duration: "2h 07m", driveId: "1rPZGVtFoaraz8upV4deT5nj9xXgxT4uX", description: "" },
       // Add more lessons below ↓
     ]
   },
