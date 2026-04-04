@@ -49,7 +49,7 @@ const USERS = [
   { id: "IQS02_1046_Mohamed Insaf", username: "IQS02_1046_Mohamed Insaf", password: "IQS02_1046", name: "Mohamed Insaf",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1049_Mussab Habiballa", username: "IQS02_1049_Mussab Habiballa", password: "IQS02_1049", name: "Mussab Habiballa",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1070_Christian Dave Bulac", username: "IQS02_1070_Christian Dave Bulac", password: "IQS02_1070", name: "Christian Dave Bulac",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
-  { id: "IQS02_1065_Faisal Alqahtani", username: "IQS02_1065_Faisal Alqahtani", password: "IQS02_1065", name: "Faisal Alqahtani",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
+  { id: "IQS02_1065_Faisal Alqahtani", username: "IQS02_1065_Faisal Alqahtani", password: "IQS02_1065", name: "Faisal Alqahtani",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6", "p1", "p2", "p3"] } },
   { id: "APC37_1681_Mohammed Hussain", username: "APC37_1681_Mohammed Hussain", password: "APC37_1681", name: "Mohammed Hussain",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1071_Sharon Raviz", username: "IQS02_1071_Sharon Raviz", password: "IQS02_1071", name: "Sharon Raviz",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "APC35_1606_Naveed Malik", username: "APC35_1606_Naveed Malik", password: "APC35_1606", name: "Naveed Malik",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
@@ -72,7 +72,7 @@ const USERS = [
   { id: "IQS02_1045_Мuhammad Ali", username: "IQS02_1045_Мuhammad Ali", password: "IQS02_1045", name: "Мuhammad Ali",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "AQS37_1586_Shams Tasnuva", username: "AQS37_1586_Shams Tasnuva", password: "AQS37_1586", name: "Shams Tasnuva",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1046_Lyka", username: "IQS02_1046_Lyka", password: "IQS02_1046", name: "Lyka",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
-  { id: "AQS27_1096_Hazem", username: "AQS27_1096_Hazem", password: "AQS27_1096", name: "Hazem",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
+  { id: "AQS27_1096_Hazem", username: "AQS27_1096_Hazem", password: "AQS27_1096", name: "Hazem",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6", "p1", "p2", "p3"] } },
   { id: "IQS02_1050_Mohamed Kaleem", username: "IQS02_1050_Mohamed Kaleem", password: "IQS02_1050", name: "Mohamed Kaleem",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1082_althaf", username: "IQS02_1082_althaf", password: "IQS02_1082", name: "althaf",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
   { id: "IQS02_1051_Muhammad Nafraz", username: "IQS02_1051_Muhammad Nafraz", password: "IQS02_1051", name: "Muhammad Nafraz",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
@@ -109,6 +109,7 @@ const USERS = [
   // new joinees
   { id: "IQS02_1090_Renan N. Nool", username: "IQS02_1090_Renan N. Nool", password: "IQS02_1090", name: "Renan N. Nool",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
   { id: "IQS02_1089_Fawaz", username: "IQS02_1089_Fawaz", password: "IQS02_1089", name: "Fawaz",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
+  { id: "IQS02_1091_Sachin", username: "IQS02_1091_Sachin", password: "IQS02_1091", name: "Sachin",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6", "p1", "p2", "p3"] } },
 ];
 
 // ------------------------------------------------------------
@@ -128,8 +129,8 @@ const COURSES = [
     thumbnail: "https://tse4.mm.bing.net/th/id/OIP.rcWWEPYQ9huyfUoBhAN4-wHaDZ?rs=1&pid=ImgDetMain&o=7&rm=3",
     lessons: [
       // { id: "l1", title: "Session 1 - Professional English",    duration: "1h 20m", driveId: "1lNpZc0ekNx7VtR3OETy8CTB7kxCoNQZs", description: "Tags, structure, semantics." },
-      { id: "l2", title: "Session 2 - Professional English for QS", duration: "1h 08m", driveId: "17_-9Dvnp3CpmnK6r-hR3viSS2EbSEJBi", description: "COMMUNICATION - Written" },
-      { id: "l4", title: "Session 3 - Professional English for QS", duration: "1h 14m", driveId: "1sOi5QDpeNI44ejBRNIlDbEAj4P6YWakc", description: "English Speaking & Conversational Skills" },
+      // { id: "l2", title: "Session 2 - Professional English for QS", duration: "1h 08m", driveId: "17_-9Dvnp3CpmnK6r-hR3viSS2EbSEJBi", description: "COMMUNICATION - Written" },
+      // { id: "l4", title: "Session 3 - Professional English for QS", duration: "1h 14m", driveId: "1sOi5QDpeNI44ejBRNIlDbEAj4P6YWakc", description: "English Speaking & Conversational Skills" },
       { id: "l3", title: "Session 4 - Tender Evaluation",     duration: "1h 12m", driveId: "1Asaam57JYZRvzDacnc2u_1E7-9zAc8GM", description: "Tender evaluation techniques." },
       { id: "l5", title: "Tendering - Session 5",     duration: "1h 40m", driveId: "1-O41ETau6dssKbkS6mT04BCTg632yMKc", description: "" },
       { id: "l6", title: "Tendering - Session 6",     duration: "2h 22m", driveId: "1W14YikOOm_d_Cp9D2sNpG0D7puQRKOUE", description: "" },
