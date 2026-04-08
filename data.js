@@ -104,12 +104,12 @@ const USERS = [
   { id: "IQS02_1048_Sajid Ullah Khattak", username: "IQS02_1048_Sajid Ullah Khattak", password: "IQS02_1048", name: "Sajid Ullah Khattak",    courses: ["c1"], lessonAccess: { c1: [] } },
 
   // new joinees
-  { id: "IQS02_1090_Renan N. Nool", username: "IQS02_1090_Renan N. Nool", password: "IQS02_1090", name: "Renan N. Nool",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
-  { id: "IQS02_1089_Fawaz", username: "IQS02_1089_Fawaz", password: "IQS02_1089", name: "Fawaz",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6"] } },
-  { id: "IQS02_1091_Sachin", username: "IQS02_1091_Sachin", password: "IQS02_1091", name: "Sachin",    courses: ["c1"], lessonAccess: { c1: ["l2", "l3", "l4", "l5", "l6", "p1", "p2", "p3"] } },
-  { id: "AQS36_1630_Nafeer", username: "AQS36_1630_Nafeer", password: "AQS36_1630", name: "Nafeer",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
+  { id: "IQS02_1090_Renan N. Nool", username: "IQS02_1090_Renan N. Nool", password: "IQS02_1090", name: "Renan N. Nool",    courses: ["c1"], lessonAccess: { c1: ["l3","l5", "l6", "p1", "p2", "p3"] } },
+  { id: "IQS02_1089_Fawaz", username: "IQS02_1089_Fawaz", password: "IQS02_1089", name: "Fawaz",    courses: ["c1"], lessonAccess: { c1: ["l3", "l5", "l6", "p1", "p2", "p3"] } },
+  { id: "IQS02_1091_Sachin", username: "IQS02_1091_Sachin", password: "IQS02_1091", name: "Sachin",    courses: ["c1"], lessonAccess: { c1: ["l3", "l5", "l6", "p1", "p2", "p3"] } },
+  { id: "AQS36_1630_Nafeer", username: "AQS36_1630_Nafeer", password: "AQS36_1630", name: "Nafeer",    courses: ["c1"], lessonAccess: { c1: ["l5", "l6", "p1", "p2", "p3"] } },
   { id: "IQS02_1087_Mohamed Riyaf", username: "IQS02_1087_Mohamed Riyaf", password: "IQS02_1087", name: "Mohamed Riyaf",    courses: ["c1"], lessonAccess: { c1: ["l6", "p1", "p2", "p3"] } },
-  { id: "IQS01_1030_Irshadh", username: "IQS01_1030_Irshadh", password: "IQS01_1030", name: "Irshadh",    courses: ["c1"], lessonAccess: { c1: ["l4", "l5", "l6"] } },
+  { id: "IQS01_1030_Irshadh", username: "IQS01_1030_Irshadh", password: "IQS01_1030", name: "Irshadh",    courses: ["c1"], lessonAccess: { c1: ["l5", "l6", "p1", "p2", "p3"] } },
 ];
 
 // ------------------------------------------------------------
