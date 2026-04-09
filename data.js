@@ -35,7 +35,6 @@ const USERS = [
   { id: "APC27_1116_Mohammad Oraib", username: "APC27_1116_Mohammad Oraib", password: "APC27_1116", name: "Mohammad Oraib",    courses: ["c1"], lessonAccess: { c1: [] } },
   { id: "IQS02_1063_Prajwal Manmohan Pai", username: "IQS02_1063_Prajwal Manmohan Pai", password: "IQS02_1063", name: "Prajwal Manmohan Pai", courses: ["c1"], lessonAccess: { c1: [] } },  
   { id: "APC34_1592_Javeed", username: "APC34_1592_Javeed", password: "APC34_1592", name: "Javeed",    courses: ["c1"], lessonAccess: { c1: [] } },
-  { id: "AQS31_1469_Abdulaziz Alsowaidi", username: "AQS31_1469_Abdulaziz Alsowaidi", password: "AQS31_1469", name: "Abdulaziz Alsowaidi",    courses: ["c1"], lessonAccess: { c1: [] } },
   { id: "APC38_1708_Majid Qayyum", username: "APC38_1708_Majid Qayyum", password: "APC38_1708", name: "Majid Qayyum",    courses: ["c1"], lessonAccess: { c1: [] } },
   { id: "APC36_1648_Michael Qaisiyeh", username: "APC36_1648_Michael Qaisiyeh", password: "APC36_1648", name: "Michael Qaisiyeh",    courses: ["c1"], lessonAccess: { c1: [] } },
   { id: "AQS30_1424_ Abayomi", username: "AQS30_1424_ Abayomi", password: "AQS30_1424", name: "Abayomi",    courses: ["c1"], lessonAccess: { c1: [] } },
@@ -108,8 +107,9 @@ const USERS = [
   { id: "IQS02_1089_Fawaz", username: "IQS02_1089_Fawaz", password: "IQS02_1089", name: "Fawaz",    courses: ["c1"], lessonAccess: { c1: ["l3", "l5", "l6", "p1", "p2", "p3"] } },
   { id: "IQS02_1091_Sachin", username: "IQS02_1091_Sachin", password: "IQS02_1091", name: "Sachin",    courses: ["c1"], lessonAccess: { c1: ["l3", "l5", "l6", "p1", "p2", "p3"] } },
   { id: "AQS36_1630_Nafeer", username: "AQS36_1630_Nafeer", password: "AQS36_1630", name: "Nafeer",    courses: ["c1"], lessonAccess: { c1: ["l5", "l6", "p1", "p2", "p3"] } },
-  { id: "IQS02_1087_Mohamed Riyaf", username: "IQS02_1087_Mohamed Riyaf", password: "IQS02_1087", name: "Mohamed Riyaf",    courses: ["c1"], lessonAccess: { c1: ["l6", "p1", "p2", "p3"] } },
+  { id: "IQS02_1087_Mohamed Riyaf", username: "IQS02_1087_Mohamed Riyaf", password: "IQS02_1087", name: "Mohamed Riyaf",    courses: ["c1"], lessonAccess: { c1: ["p3"] } },
   { id: "IQS01_1030_Irshadh", username: "IQS01_1030_Irshadh", password: "IQS01_1030", name: "Irshadh",    courses: ["c1"], lessonAccess: { c1: ["l5", "l6", "p1", "p2", "p3"] } },
+  { id: "AQS31_1469_Abdulaziz Alsowaidi", username: "AQS31_1469_Abdulaziz Alsowaidi", password: "AQS31_1469", name: "Abdulaziz Alsowaidi",    courses: ["c1"], lessonAccess: { c1: ["l5", "l6", "p1", "p2"] } },
 ];
 
 // ------------------------------------------------------------
